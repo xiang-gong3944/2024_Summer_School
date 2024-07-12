@@ -1,0 +1,24 @@
+{
+    "latex-workshop.latex.tools": [
+    {
+        "name": "latexmk",
+        "command": "latexmk",
+        "args": [
+            // "-time"で実行時間を表示してくれる。
+            "-time",
+            "%DOC%"
+        ],
+    },
+],
+
+"latex-workshop.latex.recipes": [
+    {
+        // latexmkを叩くだけのレシピ
+        "name": "latexmk",
+        "tools": ["latexmk"]
+    },
+],
+
+"latex-workshop.latex.autoBuild.run": "onSave"
+
+}
