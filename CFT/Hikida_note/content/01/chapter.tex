@@ -5,8 +5,527 @@
 \begin{document}
 
 \chapter{場の量子論の基礎}
+\section{背景時空の対称性}
+時間を1次元、空間を\((d-1)\)次元であるとして、
+線素を
+\begin{equation}
+    ds^2 = \eta_{\mu\nu}dx^\mu dx^\nu
+\end{equation}
+とする。
+ただしミンコフスキー計量は時間をマイナス、
+空間をプラスとする。
 
+座標の線形空間
+\setcounter{equation}{5}
+\begin{equation}
+    x^\mu \rightarrow {x'}^\mu = \Lambda_\mu^\nu x^\nu
+\end{equation}
+を考える。
+これが線素の長さを変えないうよな変換である条件は
+\begin{align*}
+    \eta_{\mu\nu}dx^\mu dx^\nu
+    &= \eta_{\mu\nu}d{x'}^\mu d{x'}^\nu\\
+    &= \eta_{\mu\nu}\Lambda_{\rho\sigma} dx^\rho dx^\sigma
+\end{align*}
+より
+\begin{equation}
+    \eta_{\rho\sigma} = \eta_{\mu\nu}\Lambda_{\rho\sigma}
+\end{equation}
+であればよい。
+このような変換をローレンツ変換という。
+またローレンツ変換は群をなし、
+この群をローレンツ群という。
 
+そして線素は並進変換
+\begin{equation}
+    x^\mu \rightarrow {x'}^\mu = x^\mu + a^\mu
+\end{equation}
+に対しても不変である。
+というのも微分をとると\(a^\mu\)はなくなるためである。
+この並進変換とローレンツ変換を合わせた全体の変換は群をなし、
+ポアンカレ群と呼ばれる。
 
+時間だけ計量がマイナスであるのを嫌って、
+代わりに時間の成分に\(t\rightarrow\tau=it\)として虚数を入れることがある。
+こうすると計量はユークリッド空間と同じクロネッカーのデルタとなる。
+
+ユークリッド化した計量テンソルのもとでは、
+ローレンツ変換は直交変換と同じものになっている。
+\(d\)次元の直交変換のなす群を\(O(d)\)と書く。
+また、リー群を考える。
+直交変換群の単位源の近傍にある無限小変換から生成される群は、
+固有値が変わらないことから、直交群から鏡映変換を除いたような変換からなる群となる。
+これを特殊直交群\(SO(d)\)と書かれる。
+
+ユークリッド計量だけではなく、もとのような計量におけるローレンツ変換を分類してみる。
+時間成分の\(-1\)が\(p\)個で、空間成分の\(+1\)が\(q\)個あるような計量\(\eta_{\mu\nu}\)における、
+無限小変換が生成する変換群\(SO(p,\,q)\)と書く。
+
+ユークリッド計量の時に、次元が\(d=2n\)のときには
+\setcounter{equation}{10}
+\begin{equation}
+    z^a = x^{2a-1}+ix^{2a}, \quad \bar{z} = x^\alpha{2a} -ix^{2a}
+\end{equation}
+というように複素座標を導入することができる。
+このとき、
+\begin{align*}
+    dz^{a}d\bar{z}^a
+    &= (dx^{2a-1}+idx^{2a})(dx^{2a-1} -idx^{2a})\\
+    &= \qty(dx^{2a-1})^2 + \qty(dx^{2a})^2
+\end{align*}
+より
+\begin{equation}
+    ds^2 = \delta_{ab}dz^{a}d\bar{z}^b
+\end{equation}
+とできる。
+
+ここで、\(z\)のみ(あるいは\(\bar{z}\))のみを混ぜる線形変換
+\begin{equation}
+    z^a = M^a_b z^b, \quad \bar{z}^z = (M^a_b)^* \bar{z^b}
+\end{equation}
+を考える。
+
+ローレンツ変換が長さを変えない条件を考えたのと同様にして
+\begin{equation}
+    \delta_{ab} M^a_c(M^b_d)^* = \delta_{bd}
+\end{equation}
+というのがわかる。
+同じように考えて、
+\(M^a_b\)という変換をなす群全体はユニタリ群\(U(n)\)を成している。
+そして、\(M^a_b\)の行列式が1を満たすような変換全体の群を
+特殊ユニタリ群\((SU(n))\)をなす。
+\setcounter{equation}{15}
+
+\section{相関関数の経路積分表示}
+場の理論では、
+背景時空上の点\(x\)ごとに異なる値をとる場\(\phi(x)\)が基本要素となっている。
+これらの場を量子化することで場の量子論が構成される。
+量子化の方法としては場の交換関係を導入する量子化と、
+量子状態の遷移を系のラグランジアンから導かれる作用を使って記述する経路積分量子化がある。
+\footnote{経路積分を知らないので間違ってるかもしれない。}
+両者は同じ答えを与えると考えられている。\footnote{証明がない感じ?}
+
+経路積分量子化では場の相関関数というのが大事になってくる。
+背景時空上の\(n\)点上の場の相関関数は
+\begin{equation}
+    \ev{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}
+\end{equation}
+と書かれれる。
+これがどういったものなのかをざっと見ていく。
+
+\subsubsection*{経路積分}
+量子力学では位置演算子\(\hat{q}\)と運動量演算子\(\hat{p}\)の間には
+正準交換関係
+\begin{equation}
+    [\hat{q},\,\hat{p}] = i
+\end{equation}
+を満たすとしている。\footnote{面倒なので\(\hbar=1\)としている。}
+場の量子論へ拡張するにはハイゼンベルグ描像
+\begin{equation}
+    \hat{q}(t) = \exp(i\hat{H}t)\hat{q}\exp(-i\hat{H}t)
+\end{equation}
+にして、演算子に時間依存するようにするとよい。
+\footnote{ハイゼンベルグ描像でいいのかな。相互作用表示だったりしない?}
+\setcounter{equation}{20}
+量子力学における重要な物理量として遷移確率がある。
+時刻\(t_i\)に位置\(q_i\)あった粒子が、
+時刻\(t_f\)に位置\(q_f\)へと遷移する確率は
+\begin{equation}
+    \braket{q_f,\,t_f}{q_i,\,t_i} = \bra{q_f}\exp[-i\hat{H}(t_f-t_i)]\ket{q_i}
+\end{equation}
+で与えられる。
+ここで、時間間隔を\(N\)等分して
+\begin{equation}
+    t_m = t_i + m\Delta t\,,\quad \Delta t\, = \frac{t_f-t_i}{N}
+\end{equation}
+と定義すると遷移確率は
+\begin{equation}
+    \braket{q_f,\,t_f}{q_i,\,t_i} = \int dq_{N-1}dq_{N-2}\cdots dq_1
+    \braket{q_N,\,t_N}{q_{N-1},\,t_{N-1}}
+    \braket{q_{N-1},\,t_{N-1}}{q_{N-2},\,t_{N-2}}
+    \cdots
+    \braket{q_2,\,t_2}{q_{1},\,t_{1}}
+\end{equation}
+となる。
+
+積分の中の1つのブラケットの中身をこのように書き換えよう
+\begin{align}
+    \braket{q_{m+1},\,t_{m+1}}{q_{m},\,t_{m}}
+    &= \bra{q_{m+1},\,t_{m+1}}\exp(-i\hat{H}\Delta t\,)\ket{q_{m},\,t_{m}} \notag\\
+    &= \int dp_m \braket{q_{m+1},\,t_{m+1}}{p_m}\bra{p_m}\exp(-i\hat{H}\Delta t\,)\ket{q_{m},\,t_{m}}
+\end{align}
+ここで、
+\begin{equation}
+    \bra{p_m}\exp(-i\hat{H}\Delta t\,)\ket{q_{m},\,t_{m}}
+    = \braket{p_m}{q_m}-i\bra{p_m}\hat{H}\ket{q_m}\Delta t\,
+\end{equation}
+でありそして、
+\begin{align}
+    \bra{p_m}\hat{H}(\hat{p},\,\hat{q})\ket{q_m} &= H(p_m,\,q_m)\braket{p_m}{q_m}\\
+    \braket{q_n}{p_m} &= \frac{1}{\sqrt{2\pi}}\exp^{ip_n q_m} \notag
+\end{align}
+であるので
+\begin{align}
+    \int dp_m \braket{q_{m+1},\,t_{m+1}}{p_m}\bra{p_m}\exp(-i\hat{H}\Delta t\,)\ket{q_{m},\,t_{m}}
+    &=\int dp_m \exp(-iH(p_m,\,q_m)\Delta t\,)\braket{q_{m+1},\,t_{m+1}}{p_m} \notag\\
+    &\simeq \int \frac{dp_m}{2\pi}\exp[ip_m(q_{m+1}-q_m)-iH(p_m,\,q_m)\Delta t\,]\\
+    &= \int \frac{dp_m}{2\pi}\exp[i\qty{p_m\frac{q_{m+1}-q_m}{\Delta t\,}-H(p_m,\,q_m)}\Delta t\,] \notag
+\end{align}
+
+よって遷移確率は\(N\rightarrow \infty\)として
+\begin{align}
+    \braket{q_f,\,t_f}{q_i,\,t_i}
+    &= \lim_{N\rightarrow \infty} \int \qty[\prod_{m=1}^{N-1}\frac{dp_m dq_m}{2\pi}]\frac{dp_0}{2\pi}
+    \exp[i\qty{\sum_{m=0}^{N-1}\qty(p_m\frac{q_{m+1}-q_m}{\Delta t}-H(p_m,\,q_m))\Delta t}]\notag\\
+    &=\int [dp\,dq] \exp[i\int_{t_i}^{t_f} dt(p\dot{q}-H(p,\,q))]
+\end{align}
+\([dp\,dq]\)は積分の測度である。
+ここでハミルトニアンが
+\begin{equation}
+    \hat{H}(\hat{p},\,\hat{q}) = \frac{1}{2}\hat{p}^2 + V(\hat{q})
+\end{equation}
+で与えられるとする。
+こうすると遷移確率は
+\begin{align}
+    \int [dp\,dq] \exp[i\int_{t_i}^{t_f} dt(p\dot{q}-\frac{1}{2}p^2 - V(q))]
+    &=\int [dp\,dq] \exp[i\int_{t_i}^{t_f} dt\qty{-\frac{1}{2}(p-\dot{q})^2 + \frac{1}{2}\dot{q}^2 - V(q)}]\notag\\
+    &=\int [dq] \exp[i\int_{t_i}^{t_f} dt\qty{\frac{1}{2}\dot{q}^2 - V(q)}]\notag\\
+    &=\int [dq] \exp[i\int_{t_i}^{t_f} dt\, L(q,\,\dot{q})]
+\end{align}
+というようにラグランジアンを用いて表せる。
+さらに作用
+\begin{equation}
+    S = \int dt\, L(q,\,\dot{q})
+\end{equation}
+を導入すると
+\begin{equation*}
+    \braket{q_f,\,t_f}{q_i,\,t_i} = \int [dq]e^{iS}
+\end{equation*}
+というようにあらわせる。
+
+\subsection*{時間順序積}
+さらにある時刻\(t_f>t>t_i\)に\(q(t)\)を挿入した経路積分を考えてみよう。
+この経路積分は
+\begin{equation}
+    \int [dq] q(t) \exp[i\int_{t_i}^{t_f}dt\, L(q,\,\dot{q})]
+    = \int dq \int [dq]' \exp[i\int_{t}^{t_f}dt\, L(q,\,\dot{q})]q\exp[i\int_{t_i}^{t}dt\, L(q,\,\dot{q})]
+\end{equation}
+と表せる。\([dq]'\)は時刻\(t\)での\(q\)積分を取り除いた測度。
+この式自体は何をしている式かというと、\(\ev{\hat{q}(t)}\)を求めている。
+またこの表式は
+\begin{align}
+    \int [dq] q(t) \exp[i\int_{t_i}^{t_f}dt\, L(q,\,\dot{q})]
+    &= \int dq \braket{q_f,\,t_f}{q_t,\,t} q \braket{q,\,t}{q_i,\,t_i}\notag \\
+    &= \int dq \bra{q_f,\,t_f}q(t)\ket{q_t,\,t}\braket{q,\,t}{q_i,\,t_i}\notag \\
+    &= \int dq \bra{q_f,\,t_f}\hat{q}(t)\ket{q_t,\,t}\braket{q,\,t}{q_i,\,t_i}\notag \\
+    &= \bra{q_f,\,t_f} \hat{q}(t) \ket{q_i,\,t_i}
+\end{align}
+というように演算子\(\hat{q}(t)\)の挿入と同等になる。
+同様にして\(q(t)q(t'),\quad (t_f>t,\,t' >t_i)\)という積を経路積分に入れる。
+すると、自動的に時間順序に並ぶので
+\begin{align}
+    \int[dq] q(t)q(t')\exp[i\int_{t_i}^{t_f}dt\, L(q,\,\dot{q})]
+    &=\bra{q_f,\,t_f} T[\hat{q}(t),\,\hat{q}(t')] \ket{q_i,\,t_i}\\
+    T[\hat{A}(t),\,\hat{B}(t')]
+    &=
+    \begin{cases}
+        \hat{A}(t)\hat{B}(t') &\qquad(t>t')\\
+        \hat{B}(t')\hat{A}(t) &\qquad(t'>t)
+    \end{cases}
+\end{align}
+となる。\(T[\hat{A}(t),\,\hat{B}(t')]\)を時間順序積という。
+
+\subsection*{虚時間形式と真空振幅}
+次に\(t\rightarrow\tau=it\)のようにユークリッド化した場合を考えてみよう。
+エネルギー固有値を
+\begin{equation}
+    \hat{H}\ket{n}=E_n\ket{n}
+\end{equation}
+とする。
+遷移確率は
+\begin{align}
+    \braket{q_f,\,t_f}{q,\,t}
+    &= \bra{q_f}\exp[-i\hat{H}t_f]\ket{q_i,\,t} \notag\\
+    &= \sum_{n} \braket{q_f}{n}\exp[-iE_n t_f]\braket{n}{q_i,\,t}\\
+    &= \sum_{n} \braket{q_f}{n}\exp[-E_n \tau_f]\braket{n}{q_i,\,t} \notag
+\end{align}
+ここで\(\tau_f\rightarrow\infty\)とすると、
+エネルギーの最も小さい基底状態\(\ket{0}\)のみが残ると考えられる。
+したがって
+\begin{align}
+    \braket{q_f,\,t}{q,\,t}
+    &= \exp(-E_0\tau_j)\braket{q_f}{0}\braket{0}{q,\,t}\\
+    &= \exp(-E_0(\tau_j-\tau))\braket{q_f}{0}\braket{0}{q} \notag
+\end{align}
+となる。
+なんだかきれいになりそうなので、
+(1.34)式の初期状態の時刻を無限の過去、終状態の時刻を無限の未来にして、
+\(n\)点の時刻における位置の積を考えてみると
+\begin{align}
+    \bra{q_f,\,t_f} &T[\hat{q}(t_1)\hat{q}(t_2)\cdots\hat{q}(t_n)] \ket{q_i,\,t_i} \notag\\
+    &=\int dq\,dq' \braket{q_f,\,t_f}{q,\,t} T[\hat{q}(t_1)\hat{q}(t_2)\cdots\hat{q}(t_n)] \braket{q',\,t}{q_i,\,t_i} \notag\\
+    &=\int dq\,dq' \bra{q_f,\,t_f}\exp[-i\hat{H}(t_f-t)]\ketbra{q} T[\hat{q}(t_1)\hat{q}(t_2)\cdots\hat{q}(t_n)] \ketbra{q'}\exp[-i\hat{H}(t-t_i)]\ket{q_i,\,t_i} \notag\\
+    &\rightarrow\exp(-E_0(\tau_f-\tau_i))\braket{q_f}{0} \bra{0}T[\hat{q}(t_1)\hat{q}(t_2)\cdots\hat{q}(t_n)] \ket{0}\braket{0}{q_i}\\
+    &=\braket{q_f,\,t_f}{q_i,\,t_i} \bra{0}T[\hat{q}(t_1)\hat{q}(t_2)\cdots\hat{q}(t_n)] \ket{0} \notag
+\end{align}
+相関関数は\(\bra{q_f,\,t_f}T[\hat{q}(t_1)\cdots\hat{q}(t_n)]\ket{q_t,\,t}/\braket{q_f,\,t_f}{q_i,\,t_i}\)
+のことであるので、
+\(n\)点の相関数は経路積分の言葉では
+\begin{align}
+    \bra{0}T[\hat{q}(t_1)\hat{q}(t_2)\cdots\hat{q}(t_n)] \ket{0}
+    &= \lim_{(\tau_f,\,\tau_i)\rightarrow(\infty,\,-\infty)}\qty[
+    \frac{\bra{q_f,\,t_f} T[\hat{q}(t_1)\hat{q}(t_2)\cdots\hat{q}(t_n)] \ket{q_i,\,t_i}}{\braket{q_f,\,t_f}{q_i,\,t_i}}] \notag\\
+    &=\dfrac{\int [dq] q(t_1)q(t_2)\cdots q(t_n)\exp(-S_E(q,\,\dot{q}))}{\int [dq]\exp(-S_E(q,\,\dot{q}))}
+\end{align}
+のように各位置の時間順序積をエネルギー基底状態で挟みこむことであらわせることがわかる。
+ここで、ユークリッド化した作用とラグランジアン
+\begin{equation}
+    S_E := \int d\tau L_E(q,\,\partial_\tau q) = - \int d\tau L(q,\,i\partial_\tau q) = i S
+\end{equation}
+を使った。
+
+場の量子論への拡張は\(q\)のみの1自由度系から\(q^a\)の他自由度系へと移り、
+添え字\(a\)として、各点の空間座標\(x^j\)をとればよい。
+経路積分の測度は
+\begin{equation}
+    \prod_a [dq^a] = \prod_{a}\prod_{\tau} dq^a(\tau) \rightarrow [d\phi] = \prod_{x^j}\prod_{\tau}d\phi(x^j,\,\tau)
+\end{equation}
+となる。
+したがって、場の理論での相関関数は
+\begin{align}
+    \ev{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}
+    &= \frac{1}{Z} \int[d\phi] \phi(x_1)\phi(x_2)\cdots\phi(x_n) \exp(-S(\phi))\\
+    Z
+    &= \int[d\phi] \exp(-S(\phi))
+\end{align}
+となる。この\(Z\)は真空振幅とも、分配関数とも呼ばれる。
+
+\section{作用と対称性}
+場を考えるときにはラグランジアンではなく、ラグランジアン密度を使うとよい。
+そうしたときの作用は
+\begin{equation*}
+    S = \int d^dx\, \mathcal{L}(\phi,\,\partial_\mu \phi)
+\end{equation*}
+のように書ける。
+この節では古典的な議論がしやすいように虚時間形式は使わない。
+なので相関関数を計算するときには
+\(e^{iS}\)の重みで計算するとよい。
+
+物理の要請として、実現する運動は作用が停留するという条件がある。
+なので作用の変分をとると
+\begin{align}
+    \var{S}
+    &= \int d^d x\, \qty[\pdv{\mathcal{L}}{\phi}\var{\phi}+\pdv{\mathcal{L}}{(\partial_\mu \phi)}\var(\partial_\mu \phi)] \notag\\
+    &= \int d^d x\, \qty[\pdv{\mathcal{L}}{\phi}-\pdv{(\partial_\mu \phi)}\qty(\pdv{\mathcal{L}}{\partial_\mu \phi})]\var{\phi}
+\end{align}
+よりオイラーラグランジュ方程式
+\begin{equation}
+    \pdv{\mathcal{L}}{\phi}-\partial_\mu\qty(\pdv{\mathcal{L}}{(\partial_\mu \phi)}) = 0
+\end{equation}
+が得られる。
+
+運動方程式は座標変換に関して共変的でないとならない。
+無限小座標変換として、
+\begin{equation}
+    \phi(x) \rightarrow \phi'(x) = \phi(x) + \epsilon^a G_a \phi(x)
+\end{equation}
+というのを考える。
+つまり
+\begin{align*}
+    \var{\phi}=\epsilon^a G_a \phi
+\end{align*}
+というのを作用の変分の式に入れることになる。
+なので
+\begin{align}
+    \var{S}
+    &= \epsilon^a \int d^d x\, \qty[\pdv{\mathcal{L}}{\phi}G_aa\phi+\pdv{\mathcal{L}}{(\partial_\mu \phi)}\partial_\mu (G_a\phi)] \notag\\
+    &= \epsilon^a  \int d^d x\, \qty[
+            \qty{\pdv{\mathcal{L}}{\phi}
+            -\partial_\mu\qty(\pdv{\mathcal{L}}{(\partial_\mu \phi)})}G_a\phi
+            +\partial_\mu\qty(\pdv{\mathcal{L}}{(\partial_\mu\phi)}G_a \phi)
+        ]
+\end{align}
+この作用は停留するので、一番右にある項は0になる。
+\begin{equation}
+    j_a^\mu=\pdv{\mathcal{L}}{(\partial_\mu\phi)}G_a\phi
+\end{equation}
+という量を定義すると、
+\begin{equation}
+    \partial_\mu j_a^\mu =0
+\end{equation}
+となる。
+これの第0成分を時間成分を取り除いた空間成分で積分した量
+\begin{equation}
+    Q_a = \int d^{d-1}x \,j_a^0
+\end{equation}
+を"電荷"と呼ぶ。
+これは次のようして保存量だとわかる。
+\begin{equation}
+    \dv{Q_a}{t} = \int d^{d-1}x\, \partial_{0}j_a^0 = -\int d^{d-1}x \partial{x^i}j_a^i = -\int_\partial d^dx\,j_a^i =0
+\end{equation}
+このように無限小変換に対して不変性があるときには保存量が存在するのがわかる。
+これをネーターの定理といい、その"電荷"密度と流れをまとめてネーターカレントという。
+
+% \subsection*{例1:並進対称性}
+% スカラー場が並進対称性つまり、
+% 座標を
+% \begin{equation}
+%     x^\mu \rightarrow {x'}^\mu = x^\mu - \epsilon^\mu
+% \end{equation}
+% というように取り替えても物理が変わらないという対称性を考える。
+% このときスカラー場は
+% \begin{equation*}
+%     \phi'(x')=\phi(x)
+% \end{equation*}
+% と変化する。
+% \begin{equation}
+%     \phi(x) \rightarrow \phi'(x') = \phi(x+\epsilon) = \phi'(x) -\epsilon^\mu \partial_\mu \phi'(x)
+% \end{equation}
+% ラグランジアンも
+
+\setcounter{equation}{59}
+\section{相関関数}
+量子論における相関関数\(\ev{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\)に関する対称性を考える。
+
+ユークリッド背景の下での相関関数は、経路積分の言葉では(1.43)のようにあらわすことができる。
+場\(\phi(x)\)と結合する外場\(J(x)\)を導入して、生成汎関数
+\begin{equation}
+    Z{j} = \int [d\phi] \exp[-S(\phi)+\int d^dx\, J(x)\phi(x)]
+\end{equation}
+を定義する。
+すると相関関数は汎関数微分を用いて
+\begin{equation}
+    \ev{\phi(x_1)\phi(x_2)\cdots\phi(x_n)} = \left. \frac{1}{Z[0]}\fdv{J(x_1)}\fdv{J(x_2)}\cdots\fdv{J(x_n)}Z[J]\right|_{J=0}
+\end{equation}
+で表すことができる。
+実際
+\begin{align*}
+    \left.\frac{1}{Z[0]}\fdv{Z[J]}{J(x_i)}\right|_{J=0}
+    &= \left.\frac{1}{Z[0]}\int [d\phi(x)]\exp[-S(\phi)]\fdv{J(x_i)}\exp[\int d^dx\, J(x)\phi(x)]\right|_{J=0}\\
+    &= \left.\frac{1}{Z[0]}\int [d\phi(x)]\exp[-S(\phi)]\exp[\int d^dx\, J(x)\phi(x)]\fdv{J(x_i)}J(x)\phi(x)\right|_{J=0}\\
+    &= \left.\frac{1}{Z[0]}\int [d\phi] \phi(x_i)\exp[-S(\phi)+\int d^dx\, J(x)\phi(x)]\right|_{J=0}\\
+    &= \frac{1}{Z[0]}\int [d\phi] \phi(x_i)\exp[-S(\phi)]\\
+    =\ev{\phi(x_i)}
+\end{align*}
+というようにわかる。
+
+\subsection*{例 : 自由スカラー場}
+作用を
+\begin{equation}
+    S = \frac{1}{2}g \int d^d x(\partial^\mu\phi\partial_\mu\phi - m^2\phi^2)
+\end{equation}
+とする。
+\footnote{本文だと \(+m\)になってるが誤植}
+この時の生成汎関数は
+\begin{align}
+    Z[J]
+    &= \int [d\phi] \exp[-\frac{1}{2}\int d^dx d^d y\, \phi(x)K(x,\,y)\phi(y)+\int d^dx \,J(x)\phi(x)]\notag\\
+    K(x,\,y) &= g\delta(x-y)(-\partial^\mu\partial_\mu+m^2)
+\end{align}
+と書ける。
+
+ここ多変数のガウス積分の公式
+\setcounter{equation}{65}
+\begin{align}
+    \int d^m\phi\, \exp[-\frac{1}{2}\phi_pK^{pq}\phi_q+J^p\phi_p]
+    &= \int d^m\phi\, \underset{J=0 のときの積分と同じ}{\underline{\exp[-\frac{1}{2}(\phi-J)_pK^{pq}(\phi-K)_q]}}\exp[\frac{1}{2}J^p(K^{-1})_{pq}J^q] \notag\\
+    &= \sqrt{\frac{(2\pi)^n}{\det a}}\exp[\frac{1}{2}J^p(K^{-1})_{pq}J^q]
+\end{align}
+を参考にすると積分することができる。
+最後に出た\(K^{-1}\)というのは演算子\(K(x,\,y)\)に対する逆操作、つまりグリーン関数のことである。
+定義としては
+\setcounter{equation}{70}
+\begin{equation}
+    \int d^dz K(x,\,z)K^{-1}(z,\,y) = \delta(x-y)
+\end{equation}
+\setcounter{equation}{66}
+である。
+
+よって
+\begin{equation}
+    Z[J]=Z[0]\exp[\frac{1}{2}\int d^dxd^dy\,J(x)K^{-1}(x,y)J(y)]
+\end{equation}
+と書ける。
+
+この式を見ると、自由スカラー場において汎関数微分を奇数回行うと\(J(x)\)の項が残ってしまうため、
+最後に\(J(x)=0\)する際に消えてしまうのがわかる。
+よって
+\begin{equation}
+    \ev{\phi(x_1)\phi(x_2)\cdots\phi(x_{2n-1})}=0
+\end{equation}
+となる。
+偶数回やったときには値が残る。
+試しに2点相関関数を求めてみる。
+\begin{align*}
+    &\ev{\phi(x_1)\phi(x_2)}\\
+    &=\left.\frac{1}{Z[0]}\fdv{J(x_1)}\fdv{J(x_2)}Z[J]\right|_{J=0}\\
+    &=\left.\fdv{J(x_1)}\qty{\exp[\frac{1}{2}\int d^dxd^dy\,J(x)K^{-1}(x,y)J(y)]
+    \qty(\frac{1}{2}\int d^dx J(x)K^{-1}(x,\,x_2)+K^{-1}(x_2,\,x)J(x))}\right|_{J=0}\\
+    &=\exp[\frac{1}{2}\int d^dxd^dy\,J(x)K^{-1}(x,y)J(y)]\\
+    &\left.\qquad\qty(\frac{1}{2}\int d^dx J(x)K^{-1}(x,\,x_2)+K^{-1}(x_2,\,x)J(x))
+    \qty(\frac{1}{2}\int d^dx J(x)K^{-1}(x,\,x_1)+K^{-1}(x_1,\,x)J(x))
+    \right|_{J=0}\\
+    &\qquad+\frac{1}{2}\left.\exp[\frac{1}{2}\int d^dxd^dy\,J(x)K^{-1}(x,y)J(y)]
+    \qty(K^{-1}(x_1,\,x_2)+K^{-1}(x_2,\,x_1))
+    \right|_{J=0}\\
+    &=\frac{1}{2}(K^{-1}(x_1,\,x_2)+K^{-1}(x_2,\,x_1))\\
+    &=K^{-1}(x_1,\,x_2)
+\end{align*}
+というように計算できる。
+では4点相関関数はというと、上にある計算結果を途中まで使うことができて、
+\begin{align*}
+    &\ev{\phi(x_1)\phi(x_2)\phi(x_3)\phi(x_4)}\\
+    &=\fdv{J(x_1)}\fdv{J(x_2)}\left\{
+        \exp[\frac{1}{2}\int d^dxd^dy\,J(x)K^{-1}(x,y)J(y)]\right.\\
+    &\left.\qquad\qty(\frac{1}{2}\int d^dx J(x)K^{-1}(x,\,x_4)+K^{-1}(x_4,\,x)J(x))
+    \qty(\frac{1}{2}\int d^dx J(x)K^{-1}(x,\,x_3)+K^{-1}(x_3,\,x)J(x))
+    \right|_{J=0}\\
+    &\qquad+\frac{1}{2}\left.\left.\exp[\frac{1}{2}\int d^dxd^dy\,J(x)K^{-1}(x,y)J(y)]
+    \qty(K^{-1}(x_3,\,x_4)+K^{-1}(x_4,\,x_3))
+    \right|_{J=0}\right\}\\
+    &=K^{-1}(x_2,\,x_4)K^{-1}(x_1,\,x_3)+K^{-1}(x_1,\,x_4)K^{-1}(x_2,\,x_3)+K^{-1}(x_1,\,x_2)K^{-1}(x_3,\,x_4)
+\end{align*}
+となる。
+これを一般化すると
+\begin{equation}
+    \ev{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}
+    = K^{-1}(x_1,\,x_2)K^{-1}(x_3,\,x_4)\cdots K^{-1}(x_{2n-1},\,x_{2n})
+    + \cdots
+\end{equation}
+というようになる。最後の\(\cdots\)は\(x_j\)のすべての組み合わせに関する和である。
+つまり、2点相関関数の積をすべての場合に関して和をとったものになる。
+なので自由スカラー場に関しては2点相関関数を調べることが重要になる。
+
+では2点相関関数はどのような形をしているのか。
+グリーン関数の定義より
+\begin{align}
+    \delta(x-y)
+    &= \int d^dz\,K(x,\,z)K^{-1}(z,\,y)\notag\\
+    &= g(-\partial^\mu\partial_\mu+m^2)K^{-1}(x,\,y)
+\end{align}
+となる。
+この後の議論のため、2次元かつ質量なしの\(K^{-1}\)を求める。
+この関数はスカラー量なので、関数は2点間の距離\(r=\abs{x-y}\)の関数になっているので
+\(K^{-1}(x,\,y)=D(r)\)のように置くことができる。
+また距離で見るとなったら、極座標をとるのがよいので
+\begin{equation}
+    x^1-y^1=\rho\sin\theta,\qquad x^2-y^2=\rho\cos\theta
+\end{equation}
+のようにする。
+(1.71)の両辺を積分して
+\begin{equation}
+    1 = 2\pi g \int_0^r d\rho\,\rho\qty(-\frac{1}{\rho}\pdv{\rho}\rho\pdv{\rho}D(\rho)) = -2\pi r\partial_r D(r)
+\end{equation}
+よって
+\begin{equation}
+    D(r) = -\frac{1}{2\pi g}\ln r
+\end{equation}
+となる。よって2点相関関数は
+\begin{equation}
+    \ev{\phi(x_1)\phi(x_2)}=-\frac{1}{2\pi g}\ln\abs{x_1-x_2}
+\end{equation}
+で与えられる。
+
+\subsubsection*{相関関数と対称性}
 
 \end{document}
