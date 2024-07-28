@@ -3,10 +3,344 @@
 \graphicspath{{./image/}}
 
 \begin{document}
-
+\setcounter{chapter}{1}
 \chapter{一般次元の共形場理論}
+\section{一般次元の共形対称性}
+一章にて、線素が併進と回転変換に関して不変であることを見た。
+この節ではユークリッド計量の場合を考えるが、
+ミンコフスキー計量のときであっても同様の議論が成り立つ。
 
+共形変換を考える際にはこれまでの議論を少し拡張する必要がある。
+一般の計量テンソル\(g_{\mu\nu}(x)\)を用意して、
+線素を
+\begin{equation}
+    ds^2=g_{\mu\nu}(x)dx^\mu dx^\nu
+\end{equation}
+と書くことにする。
+この計量テンソルは座標変換\(x\rightarrow x'\)のもとで
+\begin{equation}
+    g_{\mu\nu} \rightarrow g'_{\mu\nu}=\pdv{x^\rho}{x'^\mu} \pdv{x^\sigma}{x'^\nu}g_{\rho\sigma}
+\end{equation}
+のように変換する。
+以下ではこの計量テンソルの変換性を利用することで、対称性の解析を行いたい。
 
+\subsection*{並進・回転変換}
+まずは計量テンソルを\(g_{\mu\nu}(x)=\delta{\mu\nu}\)というように固定する。
+このとき、計量テンソルを不変にする変換が並進と回転変換と与えられることを見よう。
+座標の無限小変換
+\begin{equation}
+    x^\mu\rightarrow x'^\mu = x^\mu - \epsilon^\mu(x)
+\end{equation}
+を考える。
+この変換でのヤコビアンは次のような式を考えるとわかる。
+\begin{align*}
+    \pdv{x'^\mu}{x^\nu} &=\delta_\nu^\mu - \partial_\nu\epsilon^\mu\\
+    \pdv{x^\rho}{x'^\sigma} &=\delta_\sigma^\rho + \partial_\sigma \epsilon^\rho
+\end{align*}
+よって計量テンソルは
+\begin{align}
+    g_{\mu\nu}\rightarrow g'_{\mu\nu}
+    &=(\delta_\mu^\rho+\partial_\mu\epsilon^\rho)(\delta_\nu^\sigma+\partial_\nu\epsilon^\sigma)g_{\rho\sigma}\notag\\
+    &=g_{\mu\nu} + \partial_\mu\epsilon_\nu + \partial_\nu\epsilon_\mu
+\end{align}
+最後の等号は\(\epsilon^2\)のオーダーの項を無視して、計量テンソルがユークリッド計量ことを使った。
 
+したがって計量テンソルを不変に保つという条件は
+\begin{equation}
+    \partial_\mu\epsilon_\nu + \partial_\nu\epsilon_\mu = 0
+\end{equation}
+というのがわかった。(Killing 方程式)
+
+この式に\(\partial_\rho\)を作用させると
+\begin{equation}
+    \partial_\rho\partial_\mu\epsilon_\nu + \partial_\rho\partial_\nu\epsilon_\mu
+    =\partial_\mu\partial_\rho\epsilon_\nu + \partial_\nu\partial_\rho\epsilon_\mu
+    =\partial_\mu(-\partial_\nu \epsilon_\rho)+\partial_\nu(-\partial_\mu \epsilon_\rho)
+    =-2\partial_\mu\partial_\nu\epsilon_\rho =0
+\end{equation}
+これより、\(\epsilon\)は\(x\)の一次式
+\begin{equation}
+    \epsilon_\mu = a_\mu + b_{\mu\nu}x^\nu
+\end{equation}
+で書けることがわかる。
+これを(2.5)式に戻すと
+\begin{align*}
+    0=\partial_\mu(a_\nu+b_{\nu\rho}x^\rho) + \partial_\nu(a_\mu+b_{\mu\rho}\rho)=b_{\mu\nu}+b_{\nu\mu}
+\end{align*}
+となり係数\(b_{\mu\nu}\)は反対称だとわかる。
+よって座標変換は
+\begin{equation*}
+    x^\mu\rightarrow x'^\mu = x^\mu -a^\mu -b\indices{^{\mu}_\nu}x^\nu
+\end{equation*}
+というように書ける。つまり\(a^\mu\)は並進、\(b_\nu^\mu x^\nu\)は回転を表している。
+
+無限小変換をリー群のように書きなおすと
+\begin{equation*}
+    x^\mu\rightarrow x'^\mu = (1-i\epsilon^\nu G_\nu)x^\mu.
+\end{equation*}
+つまり、並進の生成子\(P_\mu\)は
+\begin{align}
+    (1-ia^\nu P_\nu)x^\mu&=x^\mu-a^\mu\notag\\
+    \rightarrow \quad P_\mu &= -i\partial_\mu
+\end{align}
+とわかる。
+また、回転変換の生成子\(L_{\mu\nu}\)は
+\begin{align}
+    (1-ib^{\nu\rho}L_{\nu\rho})x^\mu &= x^\mu - b\indices{^{\mu}_\sigma} x^\sigma \notag\\
+    b^{\nu\rho}L_{\nu\rho}x^\mu &= -ib\indices{^{\mu}_\sigma} x^\sigma\notag\\
+    L_{\nu\rho}x^\mu&=-ib_{\nu\rho}^{-1}b^{\mu\sigma} x_\sigma\notag\\
+    &\overset{?}{=}i(\delta_\nu^\mu\delta_\rho^\sigma-\delta_\nu^\sigma\delta_\rho^\mu)x_\sigma\notag\\
+    &=i(x_\nu\partial_\rho-x_\rho\partial_\nu)x^\mu\notag\\
+    \rightarrow \quad L_{\mu\nu} &= i(x_\mu\partial_\nu-x_\nu\partial_\mu)\\
+    &=-(x_\mu P_\nu-x_\nu P_\mu)\notag
+\end{align}
+となる。
+
+これらの生成子の交換関係は
+\begin{equation}
+    \begin{split}
+        &[P_\mu,\,P_\nu]=0,\quad [P_\mu,\,L_{\rho\sigma}] = i(\eta_{\mu\rho}P_\sigma-\eta_{\mu\sigma}P_\rho)\\
+        &[L_{\mu\nu},\,L_{\rho\sigma}] = i(\eta_{\nu\rho}L_{\mu\sigma}-\eta_{\mu\rho}L_{\nu\sigma}-\eta_{\nu\sigma}L_{\mu\rho}+\eta_{\mu\sigma}L_{\nu\rho})
+    \end{split}
+\end{equation}
+となる。
+実際、
+\begin{align*}
+    [P_\mu,\,L_{\rho\sigma}]
+    &= [P_\mu,\,-(x_\rho P_\sigma-x_\sigma P_\rho)]\\
+    &= i(\eta_{\mu\rho}P_\sigma-\eta_{\mu\sigma}P_\rho)\\
+    [L_{\mu\nu},\,L_{\rho\sigma}]
+    &=[x_\mu P_\nu-x_\nu P_\mu,\,x_\rho P_\sigma-x_\sigma P_\rho]\\
+    &=[x_\mu P_\nu,\,x_\rho P_\sigma]-[x_\mu P_\nu,\,x_\sigma P_\rho]
+        -[x_\nu P_\mu,\,x_\rho P_\sigma]+[x_\nu P_\mu,\,x_\sigma P_\rho]\\
+\end{align*}
+そして
+\begin{align*}
+    [x_\mu P_\nu,\,x_\rho P_\sigma]
+    &=[x_\mu,\,x_\rho P_\sigma]P_\nu + x_\mu [P_\nu,\,x_\rho P_\sigma]\\
+    &=i(\eta_{\mu\sigma}x_\rho P_\nu - \eta_{\rho\nu} x_\mu P_\sigma)
+\end{align*}
+より
+\begin{align*}
+    [L_{\mu\nu},\,L_{\rho\sigma}]
+    &= i(
+        \eta_{\mu\sigma}x_\rho P_\nu - \eta_{\rho\nu} x_\mu P_\sigma
+        -\eta_{\mu\rho}x_\sigma P_\nu + \eta_{\sigma\nu} x_\mu P_\rho
+        -\eta_{\nu\sigma}x_\rho P_\mu + \eta_{\rho\mu} x_\nu P_\sigma
+        +\eta_{\nu\rho}x_\sigma P_\mu - \eta_{\sigma\mu} x_\nu P_\rho
+    )\\
+    &= i(
+        -\eta_{\nu\rho}(x_\mu P_\sigma-x_\sigma P_\mu) + \eta_{\mu\rho}(x_\nu P_\sigma-x_\sigma P_\nu)
+        +\eta_{\nu\sigma}(x_\mu P_\rho-x_\rho P_\mu) - \eta_{\mu\sigma}(x_\rho P_\nu-x_\nu P_\rho)
+    )\\
+    &=i(\eta_{\nu\rho}L_{\mu\sigma}-\eta_{\mu\rho}L_{\nu\sigma}-\eta_{\nu\sigma}L_{\mu\rho}+\eta_{\mu\sigma}L_{\nu\rho})
+\end{align*}
+で確認できる。
+回転の無限小変換を繰り返すことで特殊直交群\(SO(d)\)を作る。
+また、生成子はリー代数\(so(d)\)を成す。
+
+\subsection*{共形変換}
+並進・回転変換で見たように、
+計量テンソルの変化を見ることでどのような変換があるのか決まる。
+計量テンソルが座標変換\(x\rightarrow x'\)のもとで、
+\begin{equation}
+    g_{\mu\nu}\rightarrow g'_{\mu\nu}(x') = \Lambda(x)g_{\mu\nu}(x)
+\end{equation}
+の形まで変化してよいとする。
+このような変化となる変換を共形変換という。
+
+この変換を Killing 方程式を通してどのようなものか見てみる。
+始めの計量テンソルを平坦な時空\(g_{\mu\nu}=\eta_{\mu\nu}=\delta_{\mu\nu}\)であるものとする。
+このとき、座標変換\(x^\mu\rightarrow x'^\mu = x^\mu - \epsilon^\mu(x)\)をすると計量テンソルは
+\begin{align*}
+    g_{\mu\nu}\rightarrow g'_{\mu\nu}
+    &=(\delta_\mu^\rho+\partial_\mu\epsilon^\rho)(\delta_\nu^\sigma+\partial_\nu\epsilon^\sigma)g_{\rho\sigma}\notag\\
+    &=g_{\mu\nu} + \partial_\mu\epsilon_\nu + \partial_\nu\epsilon_\mu
+\end{align*}
+となる。
+よって
+\begin{equation}
+    \partial_\mu\epsilon_\nu + \partial_\nu\epsilon_\mu = f(x)g_{\mu\nu}
+\end{equation}
+としてやれば、
+\begin{equation*}
+    g'_{\mu\nu} = (1+f(x))g_{\mu\nu}
+\end{equation*}
+となり、共形変換となる。
+ではこの\(f(x)\)とはどのような形をしているのだろうか?
+(2.12)のトレースをとるつまり、両辺に\(\eta^{\nu\mu}\)を掛けて添え字について足し合わせると、
+\(\eta^{\nu\mu}\eta_{\mu\nu}=d\)となるので、
+\begin{equation}
+    f(x) = \frac{2}{d}\partial_\mu\epsilon^\mu
+\end{equation}
+また、(2.12)の両辺を\(\partial_\rho\)を作用させて
+\begin{equation}
+    \partial_\rho\partial_\mu\epsilon_\nu + \partial_\rho\partial_\nu\epsilon_\mu = \partial_\rho f(x)g_{\mu\nu}
+\end{equation}
+そして左辺の\(\partial_\rho\epsilon_\mu,\,\partial_\rho\epsilon_\nu\)を(2.12)式を使って、
+\(\epsilon\)の添え字を\(\rho\)に変えるように変形すると
+\begin{equation}
+    -2\partial_\mu\partial_\nu\epsilon_\rho = \partial_\rho f(x)g_{\mu\nu} - \partial_\mu f(x)g_{\nu\rho} -\partial_\nu f(x)g_{\rho\mu}.
+\end{equation}
+さらに両辺のトレースをとって
+\begin{equation}
+    -\partial^\mu\partial_\mu \epsilon_\rho = (d-2)\partial_\rho f(x)
+\end{equation}
+これより、\(\epsilon\)がある式には両辺にダランベルシアンを作用させることで\(f(x)\)に変えることができるのがわかる。
+(2.12)の両辺に\(\partial^\rho\partial_\rho\)を作用させて
+\begin{equation}
+    (2-d)\partial_\mu\partial_\nu f(x) = \partial^\rho\partial_\rho f(x) g_{\mu\nu}
+\end{equation}
+これが\(f(x)\)の取る条件である。
+ただ、このままだとわかりにくいので両辺のトレースをとって
+\begin{equation}
+    (d-1)\partial^\rho\partial_\rho f(x) =0
+\end{equation}
+となる。
+これは\(d=1\)のときには\(f(x)\)には何も制約を与えないことを表している。
+このことは 1 次元では角度が定義できないというのと関連しているそうである。
+また、\(d=2\)ではそもそもトレースをとる前の(2.17)式の時点で左辺\(=0\)となり、
+条件が緩くなっている。
+
+\(d=2\)のときは次の章で調べることとして、\(d>2\)のときを調べてみる。
+二階微分が\(0\)であるため
+\begin{equation*}
+    f(x) = \alpha + \beta_\mu x^\mu
+\end{equation*}
+という形になる。これを(2.15)に入れてみると
+\begin{equation*}
+    -2\partial_\mu\partial_\nu\epsilon_\rho = \beta_\rho g_{\mu\nu} - \beta_\mu g_{\nu\rho} -\beta_\nu g_{\rho\mu}.
+\end{equation*}
+両辺のトレースをとってもいいが、すでに右辺が位置によらない量になっていることに注目すると
+\begin{equation}
+    \epsilon_\mu = a_\mu + b_{\mu\nu}x^\nu + c_{\mu\nu\rho}x^\nu x^\rho
+\end{equation}
+というような2次の式で書けるといえる。
+\(a_\mu\)は並進変換を表しているのがわかる。
+また、2次の項では\(x^\nu\)と\(x^\rho\)は交換するので、\(c\)の後ろ2つの添え字は対称である。
+
+(2.13)式にこれを入れると
+\begin{equation*}
+    f(x) = \frac{2}{d}(b_\mu^\mu+c\indices{^{\mu}_{\mu\nu}} x^\nu+c\indices{^{\mu}_{\nu\mu}} x^\nu)
+\end{equation*}
+よって(2.12)式は
+\begin{equation*}
+    b_{\mu\nu}+b_{\nu\mu}+ 2(c_{\mu\nu\sigma}+c_{\nu\mu\sigma})x^\sigma
+    =\frac{2}{d}b_\rho^\rho g_{\mu\nu}+\frac{4}{d}g_{\mu\nu}c\indices{^{\rho}_{\rho\sigma}} x^\sigma
+\end{equation*}
+0次の部分を比較して
+\begin{equation}
+    b_{\mu\nu}+b_{\nu\mu} = \frac{2}{d}b_\rho^\rho g_{\mu\nu}
+\end{equation}
+という条件式が得られる。
+ここで
+\[
+    b_{\mu\nu}=b_{\mu\nu}^A+b_{\mu\nu}^S=b_{\mu\nu}^A+\frac{1}{d}b_{\rho}^{\rho} g_{\mu\nu}
+\]
+のように対称な部分と反対称な部分に分けることができる。
+反対称部分は回転変換に対応している。
+
+対称部分について、この部分だけをもとの座標変換の式に入れると
+\begin{align}
+    x^\mu\rightarrow x'^\mu
+    &= x^\mu - \frac{1}{d}b_{\rho}^{\rho} x^\mu\notag\\
+    &=: x^\mu - b x^\mu\\
+    &= (1 -ib\underset{D}{\underline{(-ix^\nu\partial_\nu)}})x^\mu \notag
+\end{align}
+となる。
+この微分方程式を解くと変換パラメータを\(s\)として
+\begin{equation*}
+    x_s^\mu = x_0^\mu \exp(-bs)
+\end{equation*}
+となる。
+つまりこれはスケール変換に対応している。
+
+そして\(c_{\mu\nu\sigma}\)の項については\(b_{\mu\nu}\)を導出するのに使った(2.12)式ではなく、
+(2.15)式について考えるとよくて、これに\(\epsilon\) と \(f(x)\) の表式を入れると
+\begin{align}
+    -4c_{\rho\mu\nu}
+    &= \frac{4}{d}(c_{\sigma\rho}^\sigma g_{\mu\nu}-c_{\sigma\mu}^\sigma g_{\nu\rho}-c_{\sigma\nu}^\sigma g_{\rho\mu}) \notag\\
+    c_{\rho\mu\nu} &= B_\mu g_{\nu\rho} + B_\nu g_{\rho\mu} - B_\rho g_{\mu\nu},\quad B_\rho = \frac{1}{d}c\indices{^\sigma_{\sigma\rho}}\\
+    &= 2 B_\mu g_{\nu\rho} - B_\rho g_{\mu\nu}\notag
+\end{align}
+これより、2次の項による変換は
+\begin{align}
+    x^\mu\rightarrow x'^\mu
+    &= x^\mu - 2(x^\nu B_\nu)x^\mu + B^\mu \abs{x}^2\\
+    &= \Bigl(1 -iB^\rho\underlineset{K_\rho}{\Bigl\{-i(2x_\rho x^\nu\partial_\nu - \abs{x}^2\partial_\rho)\Bigr\}}\Bigr)x^\mu \notag
+\end{align}
+となる。これを特殊共形変換という。
+
+共形変換の中にある無限小変換の生成子が出そろった。
+\begin{alignat}{4}
+    P_\mu &= -i\partial_\mu& &\notag\\
+    D &= -ix^\nu\partial_\nu &&= x^\nu P_\nu\\
+    L_{\mu\nu} &= i(x_\mu\partial_\nu-x_\nu\partial_\mu)&&=-(x_\mu P_\nu-x_\nu P_\mu)\notag\\
+    K_\rho &= -i(2x_\rho x^\nu\partial_\nu - \abs{x}^2\partial_\rho)
+    &&=2x_\rho D - \abs{x}^2 P_\rho
+\end{alignat}
+そしてこれらの生成子は次の交換関係を持つ
+\begin{equation}
+    \begin{split}
+        [D,\,K_\mu] &= -iK_\mu, \quad
+        [D,\,P_\mu] = iP_\mu, \\
+        [K_\mu,\,P_\nu] &= 2i(\eta_{\mu\nu}D-L_{\mu\nu}), \quad
+        [K_\rho,\,L_{\mu\nu}] = i(\eta_{\rho\mu} K_\nu -\eta_{\rho\nu}K_{\mu}),\\
+        [P_\rho,\,L_{\mu\nu}] &= i(\eta_{\rho\mu}P_\nu-\eta_{\rho\nu}P_\mu),\\
+        [L_{\mu\nu},\,L_{\rho\sigma}] &= i(\eta_{\nu\rho}L_{\mu\sigma}-\eta_{\mu\rho}L_{\nu\sigma}-\eta_{\nu\sigma}L_{\mu\rho}+\eta_{\mu\sigma}L_{\nu\rho}).
+    \end{split}
+\end{equation}
+ここで触れていないものはすべて可換。
+そしてこのような交換関係を満たす生成子によって構成される代数を共形代数という\footnote{なので本文はちょっと不正確}。
+
+実際にこれらの生成子の組み合わせ10通りとに加え、\(x\)との交換関係を調べておこう。
+交換関係のライプニッツ則
+\begin{equation*}
+    [ABC,\,D] = [A,\,D]BC + A[B,\,D]C + AB[C,\,D]
+\end{equation*}
+も使って、
+\begin{align*}
+    [x_\mu,\,P_\nu] &= i\eta_{\mu\nu}\\
+    [P_\mu,\,P_\nu] &= 0\\
+    [P_\rho,\,L_{\mu\nu}] &=i(\eta_{\rho\mu}P_\nu-\eta_{\rho\nu}P_\mu) \quad\text{(並進・回転の節でやった。)}\\
+    [K_\mu,\,P_\nu]
+        &= [2x_\mu D - x_\rho x^\rho P_\mu,\,P_\nu]\\
+        &= 2i\eta_{\mu\nu} D +2ix_\mu P_\nu -i\eta_{\rho\nu}x^\rho P_\mu - i\delta_\nu^\rho x_\rho P_\mu\\
+        &= 2i\eta_{\mu\nu} D +2i(x_\mu P_\nu - x_\nu P_\mu)\\
+        &= 2i(\eta_{\mu\nu} D - L_{\mu\nu} )\\ \\
+    [D,\,x_\mu] &= [x^\nu P_\nu,\,x_\mu] = -ix_\mu\\
+    [D,\,P_\mu] &= [x^\nu P_\nu,\,P_\mu] = iP_\mu\\
+    [D,\,D] &= [D,\,x^\mu P_\mu]=-ix^\mu P_\mu + ix^\mu P_\mu =0\\
+    [D,\,L_{\mu\nu}]
+        &= [D,\,-(x_\mu P_\nu -x_\nu P_\mu)]\\
+        &= ix_\mu P_\nu - ix_\mu P_\nu - (\mu\leftrightarrow\nu)=0\\
+    [D,\,K_\mu]
+        &= [D,\,2x_\mu D - \abs{x}^2 P_\mu]\\
+        &= -2ix_\mu D -[D,\,x_\rho] x^\rho P_\mu- x_\rho[D,\,x^\rho] P_\mu - \abs{x^2}[D,\,P_\mu]\\
+        &= -2ix_\mu D + 2i\abs{x}^2 P_\mu - i\abs{x}^2 P_\mu\\
+        &= -i(2x_\mu D - \abs{x}^2 P_\mu) = iK_\mu\\ \\
+    [x_\mu,\,K_\nu] &=[x_\mu,\,2x_\nu D - \abs{x}^2 P_\nu] = 2ix_\mu x_\nu - i\abs{x}^2\eta_{\mu\nu}\\
+    \rightarrow&[x^\mu,\,K_\nu]P_\mu = -iK_\nu\\
+    [K_\mu,\,K_\nu]&=\\
+    [K_\rho,\,L_{\mu\nu}]&=\\ \\
+    [x_\rho,\,L_{\mu\nu}]&=[x_\rho,\,-(x_\mu p_\nu-x_\nu p_\mu)] = i(\eta_{\rho\mu}x_\nu-\eta_{\nu\rho}x_[\mu])\\
+    [L_{\mu\nu},\,L_{\rho\sigma}]
+    &= i(\eta_{\nu\rho}L_{\mu\sigma}-\eta_{\mu\rho}L_{\nu\sigma}-\eta_{\nu\sigma}L_{\mu\rho}+\eta_{\mu\sigma}L_{\nu\rho})
+    \quad\text{(並進・回転の節でやった。)}\\
+\end{align*}
+
+また、共形代数の同型らしきものが見える形を導入する。
+反対称行列\(J_{ab}=-J_{ba}\quad(a,\,b = -1,\,0,\,1,\dots,\,d)\)を導入し、
+\begin{equation}
+    \begin{split}
+        J_{(-1)0} = D, \quad J_{(-1)\mu} = \frac{1}{2}(P_\mu-K_\mu),\\
+        J_{0\mu} = \frac{1}{2}(P_\mu + K_\mu),\quad J_{\mu\nu} = L{\mu\nu}
+    \end{split}
+\end{equation}
+とすると、
+\begin{equation}
+    [J_{ab},\,J_{cd}] = i(\eta_{bc}J_{ad}-\eta_{ac}J_{bd}-\eta_{bd}J_{ac}+\eta_{ad}J_{bc})
+\end{equation}
+という関係が成り立つことがわかる。
 
 \end{document}

@@ -284,7 +284,17 @@
 \end{equation}
 を使った。
 
-場の量子論への拡張は\(q\)のみの1自由度系から\(q^a\)の他自由度系へと移り、
+柏太郎『経路積分』\cite{book:kashiwa-taro_2015}によると、
+この式は経路積分の歴史的には結構大事らしい。
+というのも1960 年代の人たちは解析力学の作用停留の原理からくる式ではあるので正しいと感じはしていたが、
+量子論なのに演算子の非可換性や基底状態といったものがあまり露わになっていないというので、
+経路積分を信用しきれていなかった。
+ただこの表式を見ると、n点相関関数というのは基底状態の位置の期待値のような式になっている。
+つまり、ちゃんと基底状態というのあるというのがわかるので少し安心したようである。
+ここら辺のアイデアはファインマンではなく1971に韓国の方 %TODO ちゃんと書く
+による経路積分のレビューで触れられたらしい。 % TODO 論文を引っ張る
+
+場の量子論への拡張は\(q\)のみの1自由度系から\(q^a\)の多自由度系へと移り、
 添え字\(a\)として、各点の空間座標\(x^j\)をとればよい。
 経路積分の測度は
 \begin{equation}
@@ -384,7 +394,7 @@
 % ラグランジアンも
 
 \setcounter{equation}{59}
-\section{相関関数}
+\section{相関関数と対称性}
 量子論における相関関数\(\ev{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\)に関する対称性を考える。
 
 ユークリッド背景の下での相関関数は、経路積分の言葉では(1.43)のようにあらわすことができる。
@@ -469,7 +479,7 @@
     \qty(K^{-1}(x_1,\,x_2)+K^{-1}(x_2,\,x_1))
     \right|_{J=0}\\
     &=\frac{1}{2}(K^{-1}(x_1,\,x_2)+K^{-1}(x_2,\,x_1))\\
-    &=K^{-1}(x_1,\,x_2)
+    &=K^{-1}(x_1,\,x_2) \tag{1.70}
 \end{align*}
 というように計算できる。
 では4点相関関数はというと、上にある計算結果を途中まで使うことができて、
@@ -498,6 +508,7 @@
 
 では2点相関関数はどのような形をしているのか。
 グリーン関数の定義より
+\setcounter{equation}{70}
 \begin{align}
     \delta(x-y)
     &= \int d^dz\,K(x,\,z)K^{-1}(z,\,y)\notag\\
@@ -526,6 +537,173 @@
 \end{equation}
 で与えられる。
 
-\subsubsection*{相関関数と対称性}
+作用が
+\begin{equation}
+    x\rightarrow x',\qquad \phi(x)\rightarrow\phi'(x')=\mathcal{F}(\phi(x))
+\end{equation}
+のような有限変換のもとで不変であるとする。
+すると
+\begin{align}
+    \ev{\phi'(x'_1)\phi'(x'_2)\cdots\phi'(x'_n)}
+    &= \frac{1}{Z}\int[d\phi']\phi'(x'_1)\phi'(x'_2)\cdots\phi'(x'_n)\exp[-S(\phi')]\notag\\
+    &= \frac{1}{Z}\int[d\phi]\mathcal{F}(\phi(x_1))\mathcal{F}(\phi(x_2))\cdots\mathcal{F}(\phi(x_n))\exp[-S(\phi)]\notag\\
+\end{align}
+となる。
+2つ目の等号では作用と積分測度が変換のもと変わらないこと
+\begin{equation}
+    S[\phi'] = S[\phi], \qquad [d\phi']=[d\phi]
+\end{equation}
+というのを使った。
+ただし、積分測度は量子異常により敗れることがある。
+ここでは労使論でも対称性が成り立っていると仮定している。
+
+(1.77)式より
+\begin{equation}
+    \ev{\phi'(x'_1)\phi'(x'_2)\cdots\phi'(x'_n)}
+    = \ev{\mathcal{F}(\phi(x_1))\mathcal{F}(\phi(x_2))\cdots\mathcal{F}(\phi(x_n))}
+\end{equation}
+となる。
+
+\subsection*{Schwinger-Dyson 方程式\(^*\)}
+経路積分を考えると作用が停留するような運動以外の寄与というのも考えることになる。
+なので運動方程式\(\delta S/\delta \phi =0\)が量子論においてどのような補正を受けるかを考える。
+場が
+\begin{equation*}
+    \phi(x)\rightarrow\phi'(x)=\phi(x)+\delta\phi(x)
+\end{equation*}
+のように変わるものとする。
+場を引数とする関数の期待値は変換によって変わらないという式
+\begin{equation*}
+    \ev{F[\phi]}
+    = \frac{1}{Z}\int[d\phi]F[\phi]\exp[-S(\phi)]
+    = \frac{1}{Z}\int[d\phi']F[\phi']\exp[-S(\phi')]
+\end{equation*}
+これの2つ目の等号について差をとって、1次の微小量まで取ると
+\begin{align*}
+    0
+    &=\int[d\phi']\,F[\phi']\exp[-S(\phi')]-\int[d\phi]\,F[\phi]\exp[-S(\phi)]\\
+    &=\int[d\phi]\,\Bigr(F[\phi+\var{\phi}]\exp[-(S+\var{S})]-F[\phi]\exp[-S(\phi)]\Bigl)\\
+    &=\int[d\phi] \qty(F[\phi]\exp[-S(\phi)]
+        +\int d^dx\, \fdv{F[\phi]}{\phi}\var{\phi}\exp[-S(\phi)]
+        -F[\phi]\var{S}\exp[-S(\phi)]
+        -F[\phi]\exp[-S(\phi)])\\
+    &=\int[d\phi] \qty(\int d^dx\, \fdv{F[\phi]}{\phi}\var{\phi}\exp[-S(\phi)]
+        -F[\phi]\var{S}\exp[-S(\phi)])\\
+    &=\int[d\phi] \int d^dx\,\var{\phi} \qty(\fdv{F[\phi]}{\phi}\var{\phi}
+        -F[\phi]\fdv{S(\phi)}{\phi})\exp[-S(\phi)]
+\end{align*}
+となる。
+
+したがってこの式より
+\begin{equation*}
+    \ev{\fdv{S[\phi]}{\phi}F[\phi]} = \ev{\fdv{F[\phi]}{\phi}}
+\end{equation*}
+となる。特別な場合として\(F[\phi]=\phi(x_1)\phi(x_2)\cdots\phi(x_n)\)としたもの、
+\begin{equation*}
+    \ev{\fdv{S[\phi]}{\phi}\phi(x_1)\phi(x_2)\cdots\phi(x_n)}
+    =\sum_{j=1}^{n} \delta(x-x_j)\ev{\phi(x_1)\phi(x_2)\cdots\cancel{\phi(x_j)}\cdots\phi(x_2)}
+\end{equation*}
+これが Schwinger-Dyson 方程式と呼ばれるものである。
+量子論において運動方程式\(\delta S[\phi] /\delta \phi\neq 0\)であり、
+演算子\(\phi(x)\)と同じ一点にあるとき、デルタ関数に比例する寄与をもつ。
+これを接触項という。
+
+ネーターの定理は作用停留の原理からきていたものなので修正を受けることがわかる。
+
+\subsection*{Ward-高橋恒等式}
+場の変換として無限小の変換を考える。
+座標に依存する無限小パラメータ\(\epsilon^a(x)\)を導入して、
+\begin{equation}
+    \phi(x) \rightarrow \phi'(x) = \phi(x) +\epsilon^a(x)G_a\phi(x)
+\end{equation}
+のように場を変化させる。
+すると作用の変分は
+\begin{align}
+    \delta S
+    &= \int d^dx\qty[
+        \pdv{\mathcal{L}}{\phi}\epsilon^a(x)G_a\phi
+        +\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\mu(\epsilon^a(x)G_a\phi)
+    ]\notag\\
+    &= \int d^dx\qty[
+        \qty{\pdv{\mathcal{L}}{\phi}-\partial_\mu\qty(\pdv{\mathcal{L}}{(\partial_\mu\phi)})}\epsilon^a(x)G_a\phi
+        +\partial_\mu\qty(\pdv{\mathcal{L}}{(\partial_\mu \phi)}\epsilon^a(x) G_a\phi)
+    ]\notag\\
+    &= \int d^dx\,
+        \partial_\mu\qty(j_a^\mu \epsilon^a(x))\notag\\
+    &\overset{?}{=} -\int d^dx\,(\partial_\mu j_a^\mu)\epsilon^a(x)
+\end{align}
+となる。
+
+\(\ev{\mathcal{F} [\phi]}=\ev{\mathcal{F} [\phi']}\)であるので、
+\begin{align*}
+    0
+    &= \int[d\phi]\qty(\int d^dx\, \fdv{F[\phi]}{\phi}\delta\phi -F[\phi]\var{S})\exp[-S(\phi)] \notag\\
+    &= \int[d\phi]\int d^dx\,\epsilon^a(x)\qty(\fdv{F[\phi]}{\phi}G_a\phi(x) +F[\phi](\partial_\mu j_a^\mu(x)))\exp[-S(\phi)] \notag\\
+\end{align*}
+というようにでき、これより
+\begin{equation*}
+    \ev{\partial_\mu j_a^\mu(x) F[\phi]} + \ev{\fdv{F[\phi]}{\phi}G_a\phi(x)} =0
+\end{equation*}
+という表式が得られる。
+特に\(F[\phi]=\phi(x_1)\phi(x_2)\cdots\phi(x_n)\)としたときにはこの式は
+\begin{align}
+    \ev{\partial_\mu j_a^\mu(x) \phi(x_1)\phi(x_2)\cdots\phi(x_n)}
+    &+\sum_{j=1}^n \delta(x-x_j)\ev{\phi(x_1)\phi(x_2)\cdots G_a\phi(x_j)\cdots\phi(x_n)} = 0\\
+    \ev{\partial_\mu j_a^\mu(x) \phi(x_1)\phi(x_2)\cdots\phi(x_n)}
+    &=-\sum_{j=1}^n \delta(x-x_j)\ev{\phi(x_1)\phi(x_2)\cdots G_a\phi(x_j)\cdots\phi(x_n)}
+\end{align}
+というように表される。これを Ward-高橋恒等式(の一種)と呼ばれれている。
+
+\section{角運動量}
+角運動量について簡単に復習する。
+角運動量演算子は交換関係
+\begin{equation}
+    [J^i,\,J^j] = i\epsilon^{ijk}J^k
+\end{equation}
+を満たすものとする。
+また、Casimir 演算子と昇降演算子を
+\begin{align}
+    C_2 &= J^1J^1+J^2J^2+J^3J^3\\
+    J^{\pm} &= J^1 \pm iJ^2
+\end{align}
+で定義すると、
+\begin{equation}
+    [C_2,\,J^3]=0, \quad [C_2,\,J^{\pm}]=0,\quad
+    [J^3,\,J^{\pm}] = \pm J^{\pm}, \quad[J^+,\,J^-] = 2J^3
+\end{equation}
+となる。
+
+演算子が可換であるため、同時固有状態
+\begin{align}
+    &C_2\ket{j,\,m}=j(j+1)\ket{j,\,m}\\
+    &J^3\ket{j,\,m}=m\ket{j,\,m}
+\end{align}
+が存在することがわかる。
+また、昇降演算子は(1.87)式の交換関係より
+\begin{align}
+    &\ket{j,\,m+1}\propto J^+\ket{j,\,m}\\
+    &\ket{j,\,m-1}\propto J^-\ket{j,\,m}
+\end{align}
+というのがわかる。
+これより\(J^{\pm}\)の作用により、\(C_2\)の固有値を変えずに\(J^3\)の固有値を整数だけずれた状態を生成することができる。
+
+\(\ket{j,\,j}\)という状態を考える。
+演算子の間には
+\begin{equation}
+    J^{\mp}J^{\pm}=C_2-J^3J^3\mp J^3
+\end{equation}
+という関係があるため、これより\(J^-J^+\ket{j,\,j}=0\)となる。
+よって
+\begin{equation}
+    J^+\ket{j,\,j}=0
+\end{equation}
+というのがわかる。
+また消滅演算子を使うことで、固有状態は
+\begin{equation}
+    \ket{j,\,m} = (J^-)^{j-m}{j,\,j}
+\end{equation}
+を構成できるのがわかる。
+
+のこりは割愛。
 
 \end{document}
