@@ -86,10 +86,10 @@
 とわかる。
 また、回転変換の生成子\(L_{\mu\nu}\)は
 \begin{align}
-    (1-ib^{\nu\rho}L_{\nu\rho})x^\mu &= x^\mu - b\indices{^{\mu}_\sigma} x^\sigma \notag\\
-    b^{\nu\rho}L_{\nu\rho}x^\mu &= -ib\indices{^{\mu}_\sigma} x^\sigma\notag\\
+    \qty(1-i\frac{b^{\nu\rho}}{2}L_{\nu\rho})x^\mu &= x^\mu - b\indices{^{\mu}_\sigma} x^\sigma \notag\\
+    b^{\nu\rho}L_{\nu\rho}x^\mu &= -2ib\indices{^{\mu}_\sigma} x^\sigma\notag\\
     L_{\nu\rho}x^\mu&=-ib_{\nu\rho}^{-1}b^{\mu\sigma} x_\sigma\notag\\
-    &\overset{?}{=}i(\delta_\nu^\mu\delta_\rho^\sigma-\delta_\nu^\sigma\delta_\rho^\mu)x_\sigma\notag\\
+    &=i(\delta_\nu^\mu\delta_\rho^\sigma-\delta_\nu^\sigma\delta_\rho^\mu)x_\sigma\notag\\
     &=i(x_\nu\partial_\rho-x_\rho\partial_\nu)x^\mu\notag\\
     \rightarrow \quad L_{\mu\nu} &= i(x_\mu\partial_\nu-x_\nu\partial_\mu)\\
     &=-(x_\mu P_\nu-x_\nu P_\mu)\notag
@@ -149,7 +149,14 @@
 の形まで変化してよいとする。
 このような変化となる変換を共形変換という。
 
-この変換を Killing 方程式を通してどのようなものか見てみる。
+これはどのようなものかというと角度を保つ変換である。
+内積により角度を決めると
+\begin{equation*}
+    \cos\theta = \frac{g_{\mu\nu}u^\mu v^\nu}{\sqrt{(g_{\mu\nu}u^\mu u^\nu)(g_{\mu\nu}v^\mu v^\nu)}}
+\end{equation*}
+これに共形変換を加えても値は変わらないのはわかる。
+
+この変換を Killing 方程式を通して具体定期にどのような式となるものか見てみる。
 始めの計量テンソルを平坦な時空\(g_{\mu\nu}=\eta_{\mu\nu}=\delta_{\mu\nu}\)であるものとする。
 このとき、座標変換\(x^\mu\rightarrow x'^\mu = x^\mu - \epsilon^\mu(x)\)をすると計量テンソルは
 \begin{align*}
@@ -318,11 +325,11 @@
         &= [D,\,2x_\mu D - \abs{x}^2 P_\mu]\\
         &= -2ix_\mu D -[D,\,x_\rho] x^\rho P_\mu- x_\rho[D,\,x^\rho] P_\mu - \abs{x^2}[D,\,P_\mu]\\
         &= -2ix_\mu D + 2i\abs{x}^2 P_\mu - i\abs{x}^2 P_\mu\\
-        &= -i(2x_\mu D - \abs{x}^2 P_\mu) = iK_\mu\\ \\
+        &= -i(2x_\mu D - \abs{x}^2 P_\mu) = -iK_\mu\\ \\
     [x_\mu,\,K_\nu] &=[x_\mu,\,2x_\nu D - \abs{x}^2 P_\nu] = 2ix_\mu x_\nu - i\abs{x}^2\eta_{\mu\nu}\\
     \rightarrow&[x^\mu,\,K_\nu]P_\mu = -iK_\nu\\
-    [K_\mu,\,K_\nu]&=\\
-    [K_\rho,\,L_{\mu\nu}]&=\\ \\
+    [K_\mu,\,K_\nu]&= \text{(あとでやるかも)}\\ %TODO: 示す
+    [K_\rho,\,L_{\mu\nu}]&=\text{(あとでやるかも)}\\ \\
     [x_\rho,\,L_{\mu\nu}]&=[x_\rho,\,-(x_\mu p_\nu-x_\nu p_\mu)] = i(\eta_{\rho\mu}x_\nu-\eta_{\nu\rho}x_[\mu])\\
     [L_{\mu\nu},\,L_{\rho\sigma}]
     &= i(\eta_{\nu\rho}L_{\mu\sigma}-\eta_{\mu\rho}L_{\nu\sigma}-\eta_{\nu\sigma}L_{\mu\rho}+\eta_{\mu\sigma}L_{\nu\rho})
@@ -341,6 +348,401 @@
 \begin{equation}
     [J_{ab},\,J_{cd}] = i(\eta_{bc}J_{ad}-\eta_{ac}J_{bd}-\eta_{bd}J_{ac}+\eta_{ad}J_{bc})
 \end{equation}
-という関係が成り立つことがわかる。
+という関係が成り立つことがわかる。% TODO: 確かめるべき
+これは\(SO(1,\,d+1)\)の生成子のなす交換関係と同じであるため、
+共形代数は\(SO(1,\,d+1)\)と同一視できる。
+
+これまでの解析を有限の座標変換に拡張すると
+\begin{align}
+    x'^\mu &= x^\mu +a^\mu& &\text{(並進)}\\
+    x'^\mu &= \lambda x^\mu& &\text{(スケール変換)}\\
+    x'^\mu &= \Lambda\indices{^\mu_\nu}x^\nu& &\text{(回転変換)}\\
+    x'^\mu &= \frac{x^\mu  + B^\mu\abs{x}^2}{1+2B^\nu x_\nu +\abs{B}^2\abs{x}^2}& &\text{(特殊共形変換)}
+\end{align}
+のようになる。
+特殊共形変換は無限小変換から出すことは自分にはできなかったが、逆は示せた。
+この有限変換の標識を変換のパラメータ\(B^\nu\)が小さいとして虹の項を無視して分母を分子に持っていくと
+\begin{align*}
+    \frac{x^\mu  + B^\mu\abs{x}^2}{1+2B^\nu x_\nu +\abs{B}^2\abs{x}^2}
+    &\simeq \qty(x^\mu  + B^\mu\abs{x}^2)\qty(1-2B^\nu x_\nu)\\
+    &\simeq x^\mu  + B^\mu\abs{x}^2 - 2B^\nu x_\nu x^\mu\\
+    &= (1-2 B^\nu x_\nu + B^\nu \abs{x}^2 \partial_\nu ) x^\mu\\
+    &= \Bigl(1 -iB^\rho\underlineset{K_\rho}{\Bigl\{-i(2x_\rho x^\nu\partial_\nu - \abs{x}^2\partial_\rho)\Bigr\}}\Bigr)x^\mu \notag
+\end{align*}
+となる。
+
+ポアンカレ群では出てこなかったスケール変換と特殊共形変換について、
+どのようなものかを見ておこう。
+スケール変換では計量テンソルは
+\begin{equation}
+    g_{\mu\nu} \rightarrow g'_{\mu\nu} = \frac{1}{\lambda^2} g_{\mu\nu}
+\end{equation}
+となるのはすぐわかるだろう。
+この本の描像では座標系ではなく物理的実体を動かす方の座標変換になっているので、
+つまりものが大きくなったり小さくなったりする変換になっている。
+
+特殊共形変換について、
+これは反転の演算子を\(I\)とすると\(K_\mu = I P_\mu I\)のように表すことができる。
+実際、反転変換は式ににすると
+\begin{equation}
+    x^\mu \rightarrow x'^\mu = \frac{x^\mu}{\abs{x}^2}
+\end{equation}
+という代物である。
+見てわかるように\(x=0\)では素直には定義できないので無限小変換というのを考えるのができない。
+おそらく、無限遠点をからめたリー群みたいな話になるのかもしれない。
+実際に、反転→並進→反転という操作をやると
+\begin{align}
+    x^\mu
+    &\rightarrow \frac{x^\mu}{\abs{x}^2}\notag\\
+    &\rightarrow \frac{x^\mu}{\abs{x}^2} + B^\mu\notag\\
+    &\rightarrow \dfrac{\dfrac{x^\mu}{\abs{x}^2} + B^\mu}{\qty(\dfrac{x^\nu}{\abs{x}^2} + B^\nu)\qty(\dfrac{x_\nu}{\abs{x}^2} + B_\nu)} \notag\\
+    &=\frac{x^\mu  + B^\mu\abs{x}^2}{1+2B^\nu x_\nu +\abs{B}^2\abs{x}^2}
+\end{align}
+というように表すことができる。
+このように特殊共形変換が\(K_\mu = I P_\mu I\)という操作であるというのがわかると、
+変換群の加法性に関しては明らかであるのがわかる。
+群論における共役作用を取り入れた共役類の計算に相当する気がする。
+
+また、計量テンソルに関しては
+\begin{equation}
+    g_{\mu\nu} \rightarrow g'_{\mu\nu} = (1+2B^\rho x_\rho +\abs{B}^2\abs{x}^2)^2 g_{\mu\nu}
+\end{equation}
+となる。\footnote{誤植だった。}
+実際ヤコビアンを計算すると\(B^\mu\)の一次の項まで残して計算するとわかる。
+\begin{align*}
+    \pdv{x'^\mu}{x^\nu}
+    &=\pdv{x^\nu}\qty{\frac{x^\mu  + B^\mu\abs{x}^2}{1+2B^\rho x_\rho +\abs{B}^2\abs{x}^2}}\\
+    &=\frac{1}{1+2B^\rho x_\rho +\abs{B}^2\abs{x}^2}\qty{
+        \tensor{\delta}{^\mu_\nu}+2B^\mu x_\nu -2(x^\mu+2B^\mu\abs{x}^2)(B_\nu + \abs{B}^2x_\nu)
+    }
+    =\frac{\tensor{\delta}{^\mu_\nu}}{1+2B^\rho x_\rho +\abs{B}^2\abs{x}^2}
+\end{align*}
+
+\section{準プライマリ場とその変換性}
+\subsection*{変換性}
+共形変換に対する変換性によって場\(\mathcal{O}(x)\)の分類を行う。
+
+まず回転変換でスカラーとして変換する場\(\mathcal{O}(x)\)を考える。%TODO: この要請がどのように効くのかしら。
+ここで、共形変換のもとで
+\begin{equation}
+    \mathcal{O}(x)\rightarrow\mathcal{O}'(x') = \Lambda(x)^{\Delta/2}\mathcal{O}(x)
+\end{equation}
+のように変換するものを準プライマリ場(quasi primary field)と呼ぶ。
+一般次元ではこれは準というのを付けずに単にプライマリ場と呼ぶそうだが、
+2次元での用語にあわせるとこのようになるらしい。
+
+スケール変換では\(\Lambda(x)=\lambda^{-2}\)であるので
+\begin{equation}
+    \mathcal{O}(x)\rightarrow\mathcal{O}'(\lambda x) = \lambda^{-\Delta}\mathcal{O}(x)
+\end{equation}
+というように変換することがわかる。
+これより\(\Delta\)は質量次元に関係する物理量であることがわかるのでこれを共形次元と呼ぶ。
+
+次に回転変換のもとでテンソルとして変換する場\(\mathcal{O}_{\mu_1\cdots\mu_l}\)を考える。
+この場合、\(dx^\mu\)を使って
+\begin{equation}
+    \mathcal{O}_{\mu_1\cdots\mu_l}dx^{\mu_1}\cdots dx^{\mu_l}
+\end{equation}
+のように添え字をつぶすことで共形次元が\(\Delta -l\)のスカラー場として扱うことができる。
+どういうことかというとこれをスケール変換するとよい。
+スケール変換すると
+\begin{align*}
+    \mathcal{O}_{\mu_1\cdots\mu_l}(x)\,\,dx^{\mu_1}\cdots dx^{\mu_l}
+    &\rightarrow \mathcal{O}'_{\mu_1\cdots\mu_l}(\lambda x)\,\, d(\lambda x)^{\mu_1}\cdots d(\lambda x)^{\mu_l}\\
+    &= \lambda^{-\Delta} \mathcal{O}_{\mu_1\cdots\mu_l}(x)\,\,d(\lambda x)^{\mu_1}\cdots d(\lambda x)^{\mu_l}\\
+    &= \lambda^{-(\Delta-l)} \mathcal{O}_{\mu_1\cdots\mu_l}(x)\,\, dx^{\mu_1}\cdots dx^{\mu_l}(x)
+\end{align*}
+となるからである。
+
+したがって、スピン\(l\)を持つ準プライマリ場は
+\begin{equation}
+    \mathcal{O}_{\mu_1\cdots\mu_l}(x)
+    \rightarrow \mathcal{O}'_{\mu_1\cdots\mu_l}(x')
+    =\Lambda(x)^{(\Delta-l)/2}\pdv{x^{\nu_1}}{x'^{\mu_1}}\cdots\pdv{x^{\nu_l}}{x'^{\mu_l}} \mathcal{O}_{\nu_1\cdots\nu_l}(x)
+\end{equation}
+のように変換される。\footnote{スピン\(l\)とテンソルの足が\(l\)個あることの関連がわからない。}%TODO: 調べる、
+
+準プライマリ場が無限小変換\(x'^\mu = x^\mu -\epsilon^\mu(x)\)のもとでどのように変換するか考える。
+スカラー場の同じ座標点\(x\)での変化分は
+\begin{align}
+    \mathcal{O}(x)
+    &\rightarrow \mathcal{O}'(x) = \mathcal{O}'(x'+\epsilon)\notag\\
+    &=\Lambda(x+\epsilon)^{\Delta/2}\mathcal{O}(x+\epsilon)\notag\\
+    &=(1+f(x))^{\Delta/2}(1 + \epsilon^\mu\partial_\mu)\mathcal{O}(x)\notag\\
+    &=\qty(1+\frac{\Delta}{2}\frac{2}{d}\epsilon^\mu\partial_\mu)(1 + \epsilon^\mu\partial_\mu)\mathcal{O}(x)\notag\\
+    &=\qty[1+\epsilon^\mu\partial_\mu +\frac{\Delta}{d}(\partial_\mu\epsilon^\mu)]\mathcal{O}(x)
+\end{align}
+となる。テンソル場に関しても同様に調べることができる。
+\begin{align}
+    \pdv{x^\nu}{x'^\mu}
+    &= \tensor{\delta}{^\nu_\mu} + \partial^\nu \epsilon_\mu \notag\\
+    &= \tensor{\delta}{^\nu_\mu} + \frac{1}{2}\partial^\nu \epsilon_\mu
+        + \frac{1}{2} \qty(-\partial_\mu \epsilon^\nu +f(x)\tensor{\delta}{^\nu_\mu})\notag\\
+    &= \qty{1+\frac{1}{d}(\partial^\rho \epsilon_\rho)}\tensor{\delta}{^\nu_\mu} + \frac{1}{2}\qty(\partial^\nu \epsilon_\mu
+    -\partial_\mu \epsilon^\nu)
+\end{align}
+よってテンソル場の方の変換性は
+\begin{align}
+    \mathcal{O}_{\mu_1\cdots\mu_l}(x)
+    &\rightarrow \mathcal{O}'_{\mu_1\cdots\mu_l}(x) \notag\\
+    &= \mathcal{O}'_{\mu_1\cdots\mu_l}(x'+\epsilon) \notag\\
+    &= \Lambda(x+\epsilon)^{(\Delta-l)/2}\pdv{x^{\nu_1}}{x'^{\mu_1}}\cdots\pdv{x^{\nu_l}}{x'^{\mu_l}} (1+\epsilon^\mu\partial_\mu)\mathcal{O}_{\nu_1\cdots\nu_l}(x) \notag\\
+    &= \qty(1+\frac{\Delta-l}{d}\epsilon^\mu\partial_\mu)
+        \qty[\qty{1+\frac{1}{d}(\partial^\rho \epsilon_\rho)}\tensor{\delta}{^{\nu_1}_{\mu_1}} + \frac{1}{2}\qty(\partial^{\nu_1} \epsilon_{\mu_1}
+        -\partial_{\mu_1} \epsilon^{\nu_1})]\notag\\
+        &\quad \cdots
+        \qty[\qty{1+\frac{1}{d}(\partial^\rho \epsilon_\rho)}\tensor{\delta}{^{\nu_l}_{\mu_l}} + \frac{1}{2}\qty(\partial^{\nu_l} \epsilon_{\mu_l}
+        -\partial_{\mu_l} \epsilon^{\nu_l})]
+        (1+\epsilon^\mu\partial_\mu)\mathcal{O}_{\nu_1\cdots\nu_l}(x) \notag\\
+    &= \mathcal{O}_{\mu_1\cdots\mu_l}(x) + \frac{l}{d}(\partial^\rho \epsilon_\rho)\mathcal{O}_{\mu_1\cdots\mu_l}(x)
+        +\frac{1}{2}\sum_{j=1}^l \qty(\partial^{\nu_j} \epsilon_{\mu_j}-\partial_{\mu_j} \epsilon^{\nu_j})\mathcal{O}_{\mu_1\cdots\mu_{j-1}\nu_j\mu_{j+1}\cdots\mu_l}(x)
+        + \epsilon^\mu\partial_\mu\mathcal{O}_{\mu_1\cdots\mu_l}(x) \notag\\
+        &\quad + \frac{\Delta-l}{d} \epsilon^\mu \partial_\mu \mathcal{O}_{\mu_1\cdots\mu_l}(x)\notag\\
+    &= \qty[1+\epsilon^\mu\partial_\mu +\frac{\Delta}{d}(\partial_\mu\epsilon^\mu)]\mathcal{O}_{\mu_1\cdots\mu_l}(x)
+        -\frac{1}{2}\sum_{j=1}^l \qty(\partial_{\mu_j} \epsilon^{\nu_j}-\partial^{\nu_j} \epsilon_{\mu_j})\mathcal{O}_{\mu_1\cdots\mu_{j-1}\nu_j\mu_{j+1}\cdots\mu_l}(x)
+\end{align}
+を得ることができる。
+\begin{equation*}
+    \epsilon_\mu = a_\mu + b_{\mu\nu}x^\nu + c_{\mu\nu\rho}x^\nu x^\rho \tag{2.10}
+\end{equation*}
+を入れて考えてみる。
+\(a_\mu\)のみのときそれは平行移動を表している。
+\(\epsilon_\mu = a_\mu\)を(2.43)に入れて
+\begin{align}
+    \mathcal{O}'_{\mu_1\cdots\mu_l}(x)
+    &= (1 + a^\mu \partial_\mu)\mathcal{O}_{\mu_1\cdots\mu_l}(x)\notag\\
+    &= (1 +i a^\mu \underlineset{\mathscr{P}_\mu}{(-i\partial_\mu)})\mathcal{O}_{\mu_1\cdots\mu_l}(x) \notag\\
+    \mathscr{P}_\mu &:= -i\partial_\mu
+\end{align}
+というように準プライマリ場対する並進変換の生成子\(\mathscr{P}_\mu\)が得られた。
+
+次に\(b_{\mu\nu}\)の対称成分だけ取り出してスケール変換をしてみるとする。
+すると\(\epsilon_\mu = b \eta_{\mu\nu}x^\nu\)を入れて
+\begin{align}
+    \mathcal{O}'_{\mu_1\cdots\mu_l}(x)
+    &= (1 + bx^\mu \partial_\mu + b \Delta)\mathcal{O}_{\mu_1\cdots\mu_l}(x)
+        -\frac{b}{2}\sum_{j=1}^l \underlineset{=0}{\qty(\partial_{\mu_j} \tensor{\delta}{^{\nu_j}_\rho}x^\rho-\partial^{\nu_j} \tensor{\eta}{_{\nu_j}_\rho}x^\rho)}\mathcal{O}_{\mu_1\cdots\mu_{j-1}\nu_j\mu_{j+1}\cdots\mu_l}(x)\notag\\
+    &= \qty[1 +ib\underlineset{\mathscr{D}}{\Bigl\{-i(x^\mu\partial_\mu +\Delta)\Bigr\}}]\mathcal{O}_{\mu_1\cdots\mu_l}(x) \notag\\
+    \mathscr{D} &:= -i(x^\mu\partial_\mu +\Delta).
+\end{align}
+というように準プライマリ場に対するスケール変換の生成子\(\mathscr{D}\)が得られた。
+
+そして\(b_{\mu\nu}\)の反対称成分だけにして回転変換をしてみる。
+すると\(\epsilon_\mu = b_{\mu\nu}x^\nu\)を入れて、
+\begin{align}
+    \mathcal{O}'_{\mu_1\cdots\mu_l}(x)
+    &=\qty[1+b\indices{^\mu_\nu}x^\nu\partial_\mu +\frac{\Delta}{d}(\partial_\mu b\indices{^\mu_\nu}x^\nu)]\mathcal{O}_{\mu_1\cdots\mu_l}(x)
+        -\frac{1}{2}\sum_{j=1}^l \qty(\partial_{\mu_j} \tensor{b}{^{\nu_j}_\nu}x^\nu-\partial^{\nu_j} b_{{\mu_j}\nu}x^\nu)\mathcal{O}_{\mu_1\cdots\mu_{j-1}\nu_j\mu_{j+1}\cdots\mu_l}(x)\notag\\
+    &=\qty[1+b^{\mu\nu}x_\nu\partial_\mu]\mathcal{O}_{\mu_1\cdots\mu_l}(x)
+        -\frac{1}{2}\sum_{j=1}^l \qty(\tensor{b}{^\mu^\nu}\tensor{\delta}{^{\nu_j}_\mu}\partial_{\mu_j} x_\nu-b\indices{^\mu^\nu}\eta_{\mu \mu_j}\partial^{\nu_j} x_\nu)\mathcal{O}_{\mu_1\cdots\mu_{j-1}\nu_j\mu_{j+1}\cdots\mu_l}(x)\notag\\
+    &=\qty[1+\frac{b^{\mu\nu}}{2}(x_\nu\partial_\mu-x_\mu\partial_\nu)]\mathcal{O}_{\mu_1\cdots\mu_l}(x)
+        -\frac{b^{\mu\nu}}{2}\underlineset{\Sigma_{\mu\nu}\mathcal{O}_{\mu_1\cdots\mu_l}(x)}{\sum_{j=1}^l \qty(\eta_{{\mu_j}\nu}\tensor{\delta}{^{\nu_j}_\mu}-\eta_{\mu \mu_j}\tensor{\delta}{^{\nu_j}_\nu})\mathcal{O}_{\mu_1\cdots\mu_{j-1}\nu_j\mu_{j+1}\cdots\mu_l}(x)}\notag\\
+    &=\qty[1-\frac{b^{\mu\nu}}{2}\qty(x_\mu\partial_\nu -x_\nu\partial_\mu+\Sigma_{\mu\nu})]\mathcal{O}_{\mu_1\cdots\mu_l}(x)\notag\\
+    &=\qty[1+i\frac{b^{\mu\nu}}{2}\underlineset{\mathscr{L}_{\mu\nu}}{\Bigl\{i(x_\mu\partial_\nu-x_\nu\partial_\mu + \Sigma_{\mu\nu})\Bigr\}}]\mathcal{O}_{\mu_1\cdots\mu_l}(x)\notag\\
+    \mathscr{L}_{\mu\nu}&=i(x_\mu\partial_\nu-x_\nu\partial_\mu + \Sigma_{\mu\nu})
+\end{align}
+というようにして準プライマリ場に対する回転変換の生成子\(\mathscr{L}_{\mu\nu}\)が得られた。
+
+最後に\(c_{\mu\nu\rho}\)の部分だけを取り出して特殊共形変換をするというのもよいが、
+反転と並進を組み合わせて生成子を作ろう? %TODO:
+
+これより
+\begin{equation}
+    \mathscr{K}_\mu = -i(2x_\mu x^\nu \partial_\nu -\abs{x}^2 \partial_\mu + 2\Delta x_\mu +2 x^\nu \Sigma_{\mu\nu})
+\end{equation}
+となる。
+
+これらの変換の様子を調べるため、局所座標系の原点\(x=0\)周りでの場の変換を見ると
+\setcounter{equation}{48}
+\begin{align}
+    \mathscr{P}_\mu\mathcal{O}(0) &= -i\partial_\mu\mathcal{O}(0)\\
+    \mathscr{D}\mathcal{O}(0) &= -i\Delta\mathcal{O}(0)\\
+    \mathscr{L}_{\mu\nu}\mathcal{O}(0) &= i\Sigma_{\mu\nu}\mathcal{O}(0)\\
+    \mathscr{K}_\mu\mathcal{O}(0) &= 0
+\end{align}
+となる。した3つは右辺にかかっているのがある定数の固有値方程式の形になっている。
+
+\subsection*{準プライマリ場の特徴づけ}
+(2.52)式は準プライマリ場の定義とすることもできる。
+つまり反転して平行移動してまた反転しても変わらないような場というのがプライマリ場であるといえる。
+実際に構成していこう。
+スケール変換と回転変換は交換するので同時固有状態をとってくることができる。
+なので適宜規定をとってくれば(2.50)と(2.51)を満たすように\(\mathcal{O}(0)\)の基底をとることができる。
+また場は演算子であるため、位置依存性は
+\begin{equation}
+    \mathcal{O}(x) = e^{ix^\rho \mathscr{P}_\rho} \mathcal{O}(0) e^{-ix^\rho \mathscr{P}_\rho}
+\end{equation}
+というようにして導入できる。
+
+\subsection*{ディセンダント場\(^*\)}
+無限小変換の生成子による定義
+\setcounter{equation}{58}
+\begin{equation}
+    \mathscr{K}_\mu\mathcal{O}(0) = 0
+\end{equation}
+について考えてみよう。
+準プライマリ場に\(\mathscr{P}_\mu\)を何回か作用していってできる場は
+準プライマリ場ではない。
+実際、
+\begin{equation}
+    \mathscr{K}_\mu \mathscr{P}_\nu \mathcal{O}(0) = [\mathscr{K}_\mu,\, \mathscr{P}_\nu] \mathcal{O}(0) = 2(\eta_{\mu\nu} \Delta + \Sigma_{\mu\nu})\mathcal{O}(0) \neq 0
+\end{equation}
+である。
+また、\(x\rightarrow x' = \lambda x\)のスケール変換のものでは
+\begin{equation}
+    \pdv{x'^\mu} \mathcal{O}'(x') = \lambda^{-(\Delta+1)}\pdv{x^\mu} \mathcal{O}(x)
+\end{equation}
+と変化することより、場\(\mathscr{P}_\mu\mathcal{O}(0)\)の共形次元は\(\Delta+1\)となる。
+同様に場\(\mathscr{P}_{\mu_1}\cdots\mathscr{P}_{\mu_n}\mathcal{O}(0)\)の共形次元は
+\(\Delta+n\)である。
+このことは\([D,\,\mathscr{P}_\mu]=i\mathscr{P}_\mu\)を用いても示すことができる。
+つまり、\([D,\,\mathscr{K}_\mu]=-i\mathscr{K}_\mu\)より\(\mathscr{K}_\mu\)を場に作用させると
+共形次元を1つ下げることができる。
+このように\(\mathscr{P}_\mu\)や\(\mathscr{K}_\mu\)を\(\mathcal{O}(0)\)に作用させてできる場を
+ディセンダント場という。
+
+ここで理論が物理的に正常である、すなわちユニタリ性を保つように要請すると
+共形次元\(\Delta\)に加減がついて
+\begin{align}
+    \Delta\geq d/2-1 \quad(l=0),\\
+    \Delta\geq l+d-2 \quad(l=1,\,2,\dots)
+\end{align}
+となることが知られている。
+
+ここまでの議論を表現論っぽく言うと、プライマリ場は最低ウェイト状態であり、
+一般の場はプライマリ場に\(\mathscr{P}_\mu\)を作用させて構成できる。
+プライマリ場\(\mathcal{O}(x)\)とその微分をまとめて共形族という。
+
+ウェイトという言葉が出てきた。
+これは\(d\)次元共形代数は\(SO(1,d+1)\)代数と同型であるため、
+こちらの言葉を使ったものである。
+\(SO(3)\)に対する全角運動量のように、(2.27)の各生成子と可換になる
+Casimir 演算子というのも考えれる。
+共形 Casimir 演算子は次で定められる。
+\begin{equation*}
+    J^2 = \frac{1}{2} J_{ab}J^{ab} = \frac{1}{2}M_{\mu\nu}M^{\mu\nu} - D^2 + \frac{1}{2}(P_\mu K^\mu + K^\mu P_\mu)
+\end{equation*}
+これは共形代数のすべての演算子と交換する。
+この Casimir 演算子は
+\begin{equation*}
+    J^2 = \frac{1}{2}M_{\mu\nu}M^{\mu\nu} - D(D-d) + P_\mu K^\mu
+\end{equation*}
+と変形できる。
+これをプライマリ場に作用させると
+\begin{equation*}
+    J^2 \mathcal{O}(0) = -\qty(\frac{1}{2}\Sigma_{\mu\nu}\Sigma^{\mu\nu}+\Delta(\Delta-d))\mathcal{O}(0)
+\end{equation*}
+というようになる。
+\(\mathcal{O}(0)\)をスピン\(l\)のテンソル
+\footnote{\(l\)階の対称トレースレステンソルのこと。}
+とすれば
+\begin{equation*}
+    \frac{1}{2}\Sigma_{\mu\nu}\Sigma^{\mu\nu} \mathcal{O}(0) = -l(l+d-2)\mathcal{O}(0)
+\end{equation*}
+となるらしいので
+\begin{equation*}
+    J^2\mathcal{O}(0) = -\lambda_{\Delta,\,l}\mathcal{O}(0),\quad \lambda_{\Delta,\,l} = l(l+2-2)+\Delta(\Delta-d)
+\end{equation*}
+となる。
+
+\section{相関関数への制約}
+準プライマリ場の相関関数を調べる。
+簡単のため、スカラー場についてのみ取り扱うことにする。
+準プライマリ場は
+\setcounter{equation}{63}
+\begin{equation*}
+    \mathcal{O}(x)\rightarrow\mathcal{O}'(x') = \mathcal{O}(x')=\Lambda(x)^{\Delta/2}\mathcal{O}(x)
+\end{equation*}
+というようにヤコビアンが付かずに変換する。
+\(\Lambda(x)\)自体は場の関数ではないので期待値をすり抜けることに気付くと、
+このときの準プライマリ場の相関関数は
+\begin{align}
+    \ev{\mathcal{O}'_1(x'_1)\cdots\mathcal{O}'_n(x'_n)}
+    &= \ev{\Lambda(x_1)^{\Delta_1/2}\mathcal{O}_1(x_1)\cdots\Lambda(x_n)^{\Delta_n/2}\mathcal{O}_n(x_n)} \notag\\
+    \ev{\mathcal{O}_1(x_1)\cdots\mathcal{O}_n(x_n)}
+    &= \Lambda(x_1)^{-\Delta_1/2}\cdots\Lambda(x_n)^{-\Delta_n/2}\ev{\mathcal{O}_1(x'_1)\cdots\mathcal{O}_n(x'_n)}
+\end{align}
+というように変わることがわかる。%TODO: ほんとか?
+これが、共形変換による相関関数の制限となる。
+どこまで制限できるのか見ていく。
+
+まずは2点相関関数を見ていく。
+スケール変換\(x\rightarrow x'=\lambda x\)のもとでは\(`\Lambda(x) =\lambda^{-2}\)より、
+\begin{equation}
+    \ev{\mathcal{O}_1(x_1){O}_2(x_2)}
+    = \lambda^{\Delta_1 + \Delta_2}\ev{\mathcal{O}_1(x'_1)\mathcal{O}_2(x'_2)}
+\end{equation}
+これを満たす関数について考える。
+2点相関関数でスカラーであることから、\(\ev{\mathcal{O}(x_1)\mathcal{O}(x_2)}\)は
+\(\abs{x_1-x_2}\)の関数であることがわかる。
+これより、\(f(x) = \ev{\mathcal{O}(x)\mathcal{O}(0)},\,\lambda=1+\epsilon\)とおいて、微分方程式を書くと
+\begin{align*}
+    f(x)
+    &= (1+\epsilon)^{\Delta_1 + \Delta_2} f(x + \epsilon)\\
+    &= f(x) + \epsilon\qty{(\Delta_1 + \Delta_2)f(x) + \dv{f}{x}\epsilon x}
+\end{align*}
+これを解くと
+\begin{equation*}
+    f(x) = \frac{C_{12}}{\abs{x}^{\Delta_1 + \Delta_2}}
+\end{equation*}
+となるのがわかる。
+よって相関関数は
+\begin{equation}
+    \ev{\mathcal{O}(x_1)\mathcal{O}(x_2)}= \frac{C_{12}}{\abs{x_1-x_2}^{\Delta_1 + \Delta_2}}
+\end{equation}
+
+特殊共形変換を考える。
+このとき計量は
+\begin{equation*}
+    g_{\mu\nu} \rightarrow g'_{\mu\nu} = (1+2B^\nu x_\nu +\abs{B}^2)^2 g_{\mu\nu}
+\end{equation*}
+のように変換するため、
+\begin{equation*}
+    \Lambda(x_j)^{-\Delta/2} = \frac{1}{(1+2B_\nu x_j^\nu +\abs{B}^2\abs{x}^2)^{\Delta}}
+\end{equation*}
+というようになる。
+この分母を
+\setcounter{equation}{67}
+\begin{equation}
+    \gamma_j = 1+2B_\nu x_j^\nu +\abs{B}^2\abs{x}^2
+\end{equation}
+というようにおくと、2点相関関数は
+\setcounter{equation}{66}
+\begin{equation}
+    \ev{\mathcal{O}(x_1)\mathcal{O}(x_2)} = \frac{1}{\gamma_1^{\Delta_1}\gamma_2^{\Delta_2}}\ev{\mathcal{O}_1(x'_1)\mathcal{O}_2(x'_2)}
+\end{equation}
+と書ける。
+\setcounter{equation}{68}
+相関関数の形は(2.66)のような形をしているとわかっているので、
+この形がどのように変換するかを考えればよい。
+私は反転操作に慣れていないので思いつかないが、
+このようにするとよい。
+2点\(x'_1,\,x'_2\)は反転操作によって得られたものであるため、
+このような量を考える。
+\begin{equation*}
+    \qty(\frac{s_1}{s_1}^2-\frac{s_2}{s_2^2})^2
+    =\frac{(s_1-s_2)^2}{s_1^2s_2^2}
+\end{equation*}
+これより、
+\begin{equation}
+    (x'_1-x'_2)^2 = \dfrac{\qty{\qty(\dfrac{x_1}{x_1^2}+B)-\qty(\dfrac{x_2}{x_2^2}+B)}^2}{\qty(\dfrac{x_1}{x_1^2}+B)^2\qty(\dfrac{x_2}{x_2^2}+B)^2}
+    =\dfrac{x_1^2x_2^2\qty(\dfrac{1}{x_1}-\dfrac{1}{x_2})^2}{\qty(1+Bx_1)^2\qty(1+Bx_2)^2} = \frac{(x_1-x_2)^2}{\gamma_1\gamma_2}
+\end{equation}
+となるので、(2.67)式の両辺は
+\begin{equation}
+    \frac{C_{12}}{\abs{x_1-x_2}}=\frac{(\gamma_1\gamma_2)^{(\Delta_1+\Delta_2)/2}}{\gamma_1^{\Delta_1}\gamma_2^{\Delta_2}}\frac{C_{12}}{\abs{x_1-x_2}}
+\end{equation}
+というように書ける。
+これが任意の\(\gamma_1,\,\gamma_2\)で成り立つ必要があるので
+\begin{equation*}
+    \gamma_1^{(\Delta_2-\Delta_1)/2}\gamma_2^{(\Delta_1-\Delta_2)/2} = 1
+\end{equation*}
+つまり共形次元がおなじである\(\Delta_1=\Delta_2\)のときだけである。
+よって2点相関関数は
+\begin{equation}
+    \ev{\mathcal{O}(x_1)\mathcal{O}(x_2)}= \frac{C_{12}\delta_{\Delta_1\Delta_2}}{\abs{x_1-x_2}^{\Delta_1 + \Delta_2}}
+\end{equation}
+という形まで制限される。
+\footnote{自由スカラー場のときは対数だったのに対し、こっちはべき則になってる。なにかあるのかしら。}
 
 \end{document}
