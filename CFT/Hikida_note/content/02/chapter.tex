@@ -666,13 +666,15 @@ Casimir 演算子というのも考えれる。
 これが、共形変換による相関関数の制限となる。
 どこまで制限できるのか見ていく。
 
+\subsection*{2点相関関数}
 まずは2点相関関数を見ていく。
-スケール変換\(x\rightarrow x'=\lambda x\)のもとでは\(`\Lambda(x) =\lambda^{-2}\)より、
+スケール変換\(x\rightarrow x'=\lambda x\)のもとでは\(\Lambda(x) =\lambda^{-2}\)より、
 \begin{equation}
     \ev{\mathcal{O}_1(x_1){O}_2(x_2)}
     = \lambda^{\Delta_1 + \Delta_2}\ev{\mathcal{O}_1(x'_1)\mathcal{O}_2(x'_2)}
 \end{equation}
 これを満たす関数について考える。
+並進変換と回転変換で変わらないことと、
 2点相関関数でスカラーであることから、\(\ev{\mathcal{O}(x_1)\mathcal{O}(x_2)}\)は
 \(\abs{x_1-x_2}\)の関数であることがわかる。
 これより、\(f(x) = \ev{\mathcal{O}(x)\mathcal{O}(0)},\,\lambda=1+\epsilon\)とおいて、微分方程式を書くと
@@ -744,5 +746,242 @@ Casimir 演算子というのも考えれる。
 \end{equation}
 という形まで制限される。
 \footnote{自由スカラー場のときは対数だったのに対し、こっちはべき則になってる。なにかあるのかしら。}
+ここの残った定数は準プライマリ場の再定義で吸収できるため物理的な意味のある量ではない。
+
+\subsection*{3点相関関数}
+次に3点の相関関数を考える。
+2点と同様に並進変換と回転変換で変わらないこととから
+この関数は
+\begin{equation}
+    r_{jl} = \abs{x_j-x_l}
+\end{equation}
+のみの関数であることがわかる。
+また、スケール変換を考えると
+\begin{align}
+    \ev{\mathcal{O}'_1(x'_1)\mathcal{O}'_2(x'_2)\mathcal{O}'_3(x'_3)}
+    &= \ev{\Lambda(x_1)^{\Delta_1/2}\mathcal{O}_1(x_1)\Lambda(x_2)^{\Delta_2/2}\mathcal{O}_n(x_2)\Lambda(x_3)^{\Delta_3/2}\mathcal{O}_3(x_3)} \notag\\
+    \ev{\mathcal{O}_1(x_1)\mathcal{O}_2(x_2)\mathcal{O}_3(x_3)}
+    &= \Lambda(x_1)^{-\Delta_1/2}\Lambda(x_2)^{-\Delta_2/2}\Lambda(x_3)^{-\Delta_3/2}\ev{\mathcal{O}_1(x'_1)\mathcal{O}_2(x'_2)\mathcal{O}_3(x'_3)}\notag\\
+    &= \lambda^{\Delta_1+\Delta_2+\Delta_3}\ev{\mathcal{O}_1(x'_1)\mathcal{O}_2(x'_2)\mathcal{O}_3(x'_3)}\notag
+\end{align}
+である。
+この式と(2.72)式を組み合わせる。
+\begin{equation*}
+    \ev{\mathcal{O}_1(x_1)\mathcal{O}_2(x_2)\mathcal{O}_3(x_3)} = f(r_{12},\,r_{23},\,r_{31})
+\end{equation*}
+として、スケール変換
+\begin{equation*}
+    (r'_{12},\,r'_{23},\,r'_{31})\rightarrow\lambda(r_{12},\,r_{23},\,r_{31}) = (1+\epsilon)(r_{12},\,r_{23},\,r_{31})
+\end{equation*}
+を入れると、
+\begin{align*}
+    f(r_{12},\,r_{23},\,r_{31})
+        &= (1+\epsilon)^{\Delta_1+\Delta_2+\Delta_3}f(r'_{12},\,r'_{23},\,r'_{31})\\
+        &= f(r_{12},\,r_{23},\,r_{31}) + \epsilon(\Delta_1+\Delta_2+\Delta_3)f(r_{12},\,r_{23},\,r_{31})\\
+            &\qquad + \epsilon \qty(r_{12}\pdv{r_{12}}+r_{23}\pdv{r_{23}}+r_{31}\pdv{r_{31}})f(r_{12},\,r_{23},\,r_{31})\\
+    -(\Delta_1+\Delta_2+\Delta_3)f(r_{12},\,r_{23},\,r_{31})
+        &=\qty(r_{12}\pdv{r_{12}}+r_{23}\pdv{r_{23}}+r_{31}\pdv{r_{31}})f(r_{12},\,r_{23},\,r_{31})
+\end{align*}
+これを満たす\(f(r_{12},\,r_{23},\,r_{31})\)は
+\begin{equation*}
+    f(r_{12},\,r_{23},\,r_{31}) = \frac{C}{r_{12}^a r_{23}^b r_{31}^c},\quad a+b+c =\Delta_1+\Delta_2+\Delta_3
+\end{equation*}
+である。なので相関関数はこの形の線形結合
+\begin{align}
+    \ev{\mathcal{O}_1(x_1)\mathcal{O}_2(x_2)\mathcal{O}_3(x_3)}
+        &= \sum_{a,\,b,\,c}\frac{C_{123}^{abc}}{r_{12}^a r_{23}^b r_{31}^c}\\
+    a+b+c &=\Delta_1+\Delta_2+\Delta_3
+\end{align}
+がスケール変換により制限される形である。
+さらに特殊共形変換に関してはさっきと同様にして
+\begin{equation*}
+    (x'_1-x'_2)^2(x'_2-x'_3)^2(x'_3-x'_1)^2 = \frac{(x_1-x_2)^2}{\gamma_1 \gamma_2}\frac{(x_2-x_3)^2}{\gamma_2 \gamma_3}\frac{(x_3-x_1)^2}{\gamma_3 \gamma_1}
+\end{equation*}
+という関係が示せるので
+\begin{equation}
+    \frac{C_{123}^{abc}}{r_{12}^a r_{23}^b r_{31}^c}
+    = \frac{(\gamma_1\gamma_2)^{a/2}(\gamma_2\gamma_3)^{b/2}(\gamma_3\gamma_1)^{c/2}}{\gamma_1^{\Delta_1}\gamma_2^{\Delta_2}\gamma_3^{\Delta_3}}\frac{C_{123}^{abc}}{r_{12}^a r_{23}^b r_{31}^c}
+\end{equation}
+この等号が成り立つには
+\begin{align}
+    c+a = 2\Delta_1, \quad a+b &= 2\Delta_2, \quad b+c = 2\Delta_3 \\
+    a &= \Delta_1 + \Delta_2 - \Delta_3\\
+    b &= \Delta_1 - \Delta_2 + \Delta_3\\
+    c &=-\Delta_1 + \Delta_2 + \Delta_3
+\end{align}
+というのが総和の添え字の条件となる。よって相関関数は
+\begin{equation}
+    \ev{\mathcal{O}_1(x_1)\mathcal{O}_2(x_2)\mathcal{O}_3(x_3)} = \frac{C_{123}}{r_{12}^{\Delta_1+\Delta_2-\Delta_3} r_{23}^{\Delta_1-\Delta_2+\Delta_3} r_{31}^{-\Delta_1+\Delta_2+\Delta_3}}\\
+\end{equation}
+という形になる。
+なので座標依存性を一意的に決定できた。
+
+\subsection*{4点相関関数}
+では4点関数はどうなるか、
+ここまでの式変形を追っていると、
+並進変換と回転変換とスケール変換によって
+\begin{equation}
+    \ev{\mathcal{O}_1(x_1)\mathcal{O}_2(x_2)\mathcal{O}_3(x_3)\mathcal{O}_4(x_4)}
+    = \sum_{a,\,b,\,c,\,d,\,e,\,f}\frac{C_{1234}^{abcdef}}{r_{12}^a r_{13}^b r_{14}^c r_{23}^d r_{24}^e r_{34}^f} \\
+\end{equation}
+という形になることがわかる。
+ただ、特殊共形変換によって形は完全に決まるかというとそうではない。
+実際(2.75)式に相当する式を作ると
+\begin{equation*}
+    \frac{C_{1234}^{abcdef}}{r_{12}^a r_{13}^b r_{14}^c r_{23}^d r_{24}^e r_{34}^f}
+    =\frac{
+        (\gamma_1\gamma_2)^{a/2}(\gamma_1\gamma_3)^{b/2}(\gamma_1\gamma_4)^{c/2}
+        (\gamma_2\gamma_3)^{d/2}(\gamma_2\gamma_4)^{e/2}(\gamma_3\gamma_4)^{f/2}
+    }{
+        \gamma_1^{\Delta_1}\gamma_2^{\Delta_2}\gamma_3^{\Delta_3}\gamma_4^{\Delta_4}}
+    \frac{C_{1234}^{abcdef}}{r_{12}^a r_{13}^b r_{14}^c r_{23}^d r_{24}^e r_{34}^f}
+\end{equation*}
+となり連立方程式を完全に解くことができず、不定性が残るのがわかる。
+\footnote{おそらく、この不定性は対称群、交換子群、可解群、ガロア理論らへんと関係がある。}
+この連立方程式を解くと
+\begin{align*}
+    a &= 2\Delta_1 - (b+c)\\
+    d &= -\Delta_1 + \Delta_2 + \Delta_3 - \Delta_4 +c\\
+    e &= -\Delta_1 + \Delta_2 - \Delta_3 + \Delta_4 +b\\
+    f &= -\Delta_1 - \Delta_2 + \Delta_3 + \Delta_4 -(b+c)
+\end{align*}
+この自由度は連立方程式の Ker である。
+よって Ker b部分は
+\begin{equation*}
+    a = -(b+c),\quad d = c,\quad e = b ,\quad f = -(b+c)
+\end{equation*}
+なので相関関数には
+\begin{equation}
+    \frac{r_{12}r_{34}}{r_{13}r_{24}},\quad \frac{r_{12}r_{34}}{r_{14}r_{23}}
+\end{equation}
+というのを自由に掛けることができるので、
+\begin{equation*}
+    \ev{\mathcal{O}_1(x_1)\mathcal{O}_2(x_2)\mathcal{O}_3(x_3)\mathcal{O}_4(x_4)}
+    \propto F\qty(\frac{r_{12}r_{34}}{r_{13}r_{24}},\, \frac{r_{12}r_{34}}{r_{14}r_{23}})
+\end{equation*}
+という形となる。
+
+Ker の分の自由度はどのようにとっても良いが、
+\begin{align*}
+    b &= \frac{1}{3}(2\Delta_1 - \Delta_2 +2\Delta_3 - \Delta_4)\\
+    c &= \frac{1}{3}(2\Delta_1 - \Delta_2 - \Delta_3 +2\Delta_4)
+\end{align*}
+というようにすると、総和の添え字は\(\Delta = \Delta_1 + \Delta_2 + \Delta_3 + \Delta_4\)として
+\begin{align*}
+    a &= \frac{1}{3}(2\Delta_1 +2\Delta_2 - \Delta_3 - \Delta_4) = \Delta_1 -\Delta_2 -\frac{\Delta}{3}\\
+    b &= \frac{1}{3}(2\Delta_1 - \Delta_2 +2\Delta_3 - \Delta_4) = \Delta_1 -\Delta_3 -\frac{\Delta}{3}\\
+    c &= \frac{1}{3}(2\Delta_1 - \Delta_2 - \Delta_3 +2\Delta_4) = \Delta_1 -\Delta_4 -\frac{\Delta}{3}\\
+    d &= \frac{1}{3}( \Delta_1 +2\Delta_2 +2\Delta_3 - \Delta_4) = \Delta_2 -\Delta_3 -\frac{\Delta}{3}\\
+    e &= \frac{1}{3}( \Delta_1 +2\Delta_2 - \Delta_3 +2\Delta_4) = \Delta_2 -\Delta_4 -\frac{\Delta}{3}\\
+    f &= \frac{1}{3}( \Delta_1 - \Delta_2 +2\Delta_3 +3\Delta_4) = \Delta_3 -\Delta_4 -\frac{\Delta}{3}
+\end{align*}
+というようにきれいな形になる。
+これを使うと4点相関関数は
+\begin{equation}
+    \ev{\mathcal{O}_1(x_1)\mathcal{O}_2(x_2)\mathcal{O}_3(x_3)\mathcal{O}_4(x_4)}
+    =  F\qty(\frac{r_{12}r_{34}}{r_{13}r_{24}},\, \frac{r_{12}r_{34}}{r_{14}r_{23}})
+    \prod_{j>l} r_{jl}^{\Delta/3-(\Delta_j+\Delta_l)}
+\end{equation}
+という形となる。
+ここで出てきた Ker の部分
+\begin{equation}
+    \frac{r_{ij}r_{kl}}{r_{ik}r_{jl}}
+\end{equation}
+は交差比と呼ばれている。
+
+\section{エネルギー運動量テンソル}
+並進運動に対応する保存カレントであるエネルギー運動量テンソルは
+共形場理論において非常に重要な役割を果たすらしい。
+変換パラメータを\(x^\mu\rightarrow x'^\mu = x^\mu -\epsilon^\mu(x)\)というように位置に依存するとき、
+保存カレントと作用の変分の関係は(1.81)式より、
+\begin{equation}
+    \var{S} = \int d^dx\,T^{\mu\nu}\partial_\mu \epsilon_\nu(x)
+\end{equation}
+となる。
+一方、カレントには
+\begin{equation}
+    j^\mu \rightarrow = j'^\mu + \partial_\nu B^{\nu\mu}, \quad B^{\nu\mu} = -B^{\mu\nu}
+\end{equation}
+のように反対称テンソルの微分の分だけの不定性がある。
+この不定性によりエネルギー運動量テンソルを対称テンソルにすることができる。
+\begin{equation*}
+    T'^{\mu\nu} = T^{\mu\nu} + \partial_\rho B^{\rho\mu\nu},\quad B^{\rho\mu\nu} =- B^{\mu\rho\nu}
+\end{equation*}
+このように対称化したエネルギー運動量テンソルを Belinfante エネルギー運動量テンソルと呼ばれる。
+対称にしたとき、
+作用の変分は
+\begin{equation}
+    \var{S} = \frac{1}{2}\int d^dx\,T^{\mu\nu} (\partial_\mu \epsilon_\nu + \partial_\nu \epsilon_\mu)
+\end{equation}
+というようになる。
+
+この形は共形変換における計量の変化に似ているのでこれと比較してみよう。
+共形変換のときの計量の変化とは微妙に違うが、
+\(\var{g}_{\mu\nu}=\partial_\mu\epsilon_\nu+\partial_\nu\epsilon_\mu\)というように変えてみる。
+これこの節で初めにした変換に対応する計量の変化である。
+これを使うと作用の変分は
+\begin{equation}
+    \var{S} = \int d^dx\, \fdv{S}{g_{\mu\nu}}\,(\partial_\mu\epsilon_\nu+\partial_\nu\epsilon_\mu)
+\end{equation}
+となる。
+作用の力学変数を座標と計量の2つがあるとすると\footnote{いままでは平坦なユークリッド計量なので計量の変分は考えてなかった。ここでしか曲がった時空は考えたない。}、
+作用の変分の合計は
+\begin{equation*}
+    \var{S} = \int d^dx\,\qty(\frac{1}{2}T^{\mu\nu} + \fdv{S}{g_{\mu\nu}})(\partial_\mu\epsilon_\nu+\partial_\nu\epsilon_\mu)
+\end{equation*}
+となる。これが 0 になるのでエネルギー運動量テンソルは
+\begin{equation}
+    T^{\mu\nu} = -2 \fdv{S}{g_{\mu\nu}}
+\end{equation}
+となる。
+一般に曲がった背景上では
+\begin{equation}
+    T^{\mu\nu} = -\frac{2}{\sqrt{\det g}}\fdv{S}{g_{\mu\nu}}
+\end{equation}
+である。
+\footnote{重力との関連? 一般相対論の結果をさらっと引用? 曲がった背景上での場の量子論とのつながり?}
+
+では共形変換をしてみよう。
+この場合、計量は\(\var{g_{\mu\nu}}=\partial_\mu\epsilon_\nu+\partial_\nu\epsilon_\mu=\frac{2}{d}\partial_\rho \epsilon^\rho g_{\mu\nu}\)と変化する。
+なのでこれを(2.87)にいれて、
+\begin{equation}
+    \var{S}
+    = \frac{1}{d} \int d^dx\, T^{\mu\nu}\frac{2}{d}\partial_\rho \epsilon^\rho g_{\mu\nu}
+    = \frac{1}{d}\int d^dx\, T\indices{^\mu_\mu}\partial_\nu\epsilon^\nu
+\end{equation}
+となる。
+任意の共形変換に対して作用の変分が 0 となるのは
+\begin{equation}
+    T\indices{^\mu_\mu} =0
+\end{equation}
+というトレースレス条件が付く\footnote{これ結局どういう状況?}。
+
+さらに具体的な変換をしてみる。
+回転変換は
+\begin{equation}
+    x^\mu\rightarrow x'^\mu = x^\mu -\epsilon^\mu,\quad \epsilon^\mu = \epsilon^{\mu\nu}x_\nu, \quad(\epsilon^{\mu\nu}= - \epsilon^{\nu\mu})
+\end{equation}
+というように表される。
+このとき、スカラー場とラグランジアンは
+\begin{align}
+    \phi(x)&\rightarrow \phi'(x) = \phi(x) + \epsilon^{\mu\nu}x_\nu\partial_\mu\phi(x)\\
+    \mathcal{L}(x)&\rightarrow \mathcal{L}'(x)
+    = \mathcal{L}(x) + \epsilon^{\mu\nu}x_\nu\partial_\mu\mathcal{L}(x)
+    = \mathcal{L}(x) + \epsilon^{\mu\nu}x_\nu\partial_\mu\mathcal{L}(x)
+\end{align}
+というように変換する。
+作用の変分は
+\begin{align*}
+    \var{S}
+    &= \int d^dx\, \qty{\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}}(\partial_\mu \epsilon^\nu)\\
+    &= \int d^dx\, \qty{\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}}(\partial_\mu \epsilon^{\nu\rho}x_\rho)\\
+\end{align*}
+
+
+なのでカレントは
+\begin{align}
+    j\indices{^\mu_\nu_\rho} = \pdv{\mathcal{L}}{(\partial_\mu \phi)} L_{\nu\rho}\phi
+\end{align}
+
 
 \end{document}

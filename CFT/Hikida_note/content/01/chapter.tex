@@ -313,9 +313,9 @@
 \section{作用と対称性}
 場を考えるときにはラグランジアンではなく、ラグランジアン密度を使うとよい。
 そうしたときの作用は
-\begin{equation*}
+\begin{equation}
     S = \int d^dx\, \mathcal{L}(\phi,\,\partial_\mu \phi)
-\end{equation*}
+\end{equation}
 のように書ける。
 この節では古典的な議論がしやすいように虚時間形式は使わない。
 なので相関関数を計算するときには
@@ -376,24 +376,79 @@
 このように無限小変換に対して不変性があるときには保存量が存在するのがわかる。
 これをネーターの定理といい、その"電荷"密度と流れをまとめてネーターカレントという。
 
-% \subsection*{例1:並進対称性}
-% スカラー場が並進対称性つまり、
-% 座標を
-% \begin{equation}
-%     x^\mu \rightarrow {x'}^\mu = x^\mu - \epsilon^\mu
-% \end{equation}
-% というように取り替えても物理が変わらないという対称性を考える。
-% このときスカラー場は
-% \begin{equation*}
-%     \phi'(x')=\phi(x)
-% \end{equation*}
-% と変化する。
-% \begin{equation}
-%     \phi(x) \rightarrow \phi'(x') = \phi(x+\epsilon) = \phi'(x) -\epsilon^\mu \partial_\mu \phi'(x)
-% \end{equation}
-% ラグランジアンも
+\subsection*{例1:並進対称性}
+スカラー場が並進対称性つまり、
+座標を
+\begin{equation}
+    x^\mu \rightarrow {x'}^\mu = x^\mu - \epsilon^\mu
+\end{equation}
+というように動かしても、物理が変わらないという対称性を考える。
+このときスカラー場は
+\begin{equation*}
+    \phi'(x')=\phi(x)
+\end{equation*}
+と変化する。
+もとの座標\(x\)におけるスカラー場の値は
+\begin{equation}
+    \phi(x) \rightarrow \phi'(x) = \phi(x+\epsilon) = \phi(x) + \epsilon^\mu\partial_\mu \phi(x)
+\end{equation}
+というように書くことができる。
+この式は座標が動くといった描像が、場自体が動いたという描像に変わっているのに注意したい。
+ラグランジアン密度の変換を追ってみる。
+\begin{align*}
+    \mathcal{L}(\phi'(x'),\,\partial'_\mu \phi'(x'))
+    &= \mathcal{L}(\phi(x),\,\partial'_\mu \phi(x)) \\
+    &= \mathcal{L}(\phi(x),\,\partial_\mu \phi(x)) + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\var{(\partial_\mu \phi)}
+\end{align*}
+そして、
+\begin{align*}
+    \partial'_\mu \phi'(x') &= \pdv{x^\nu}{x'_{\mu}}\partial_\nu\phi(x) = (\delta_\mu^\nu + \partial_\mu \epsilon^\nu)\partial_\nu\phi(x)\\
+    &\rightarrow \quad \var{(\partial_\mu \phi)} =  (\partial_\mu \epsilon^\nu) \partial_\nu\phi
+\end{align*}
+よって
+\begin{equation}
+    \mathcal{L}(\phi'(x),\,\partial'_\mu \phi'(x))
+    =\mathcal{L}(\phi(x),\,\partial_\mu \phi(x)) + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\,(\partial_\mu \epsilon^\nu) \partial_\nu\phi
+\end{equation}
+さらに積分測度の変換
+\begin{equation*}
+    d^dx' = \det(\pdv{x'}{x})=\qty(1 -\partial_\mu \epsilon^\mu) d^dx
+\end{equation*}
+も考慮して、
+これらより作用の変分は
+\begin{align*}
+    \var{S}
+    &= \int d^dx'\, \mathcal{L}(\phi'(x'),\,\partial'_\mu \phi'(x')) - \int d^dx\, \mathcal{L}(\phi(x),\,\partial_\mu \phi(x))\\
+    &= \int d^dx\, \qty[\qty(1 -\partial_\mu \epsilon^\mu)\qty{\mathcal{L} + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\,(\partial_\mu \epsilon^\nu) \partial_\nu\phi}
+    -\mathcal{L}]\\
+    &= \int d^dx\, \qty{\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}}(\partial_\mu \epsilon^\nu)
+\end{align*}
+これより保存カレントは
+\begin{equation}
+    T\indices{^\mu_\nu} = \pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}
+\end{equation}
+となる。
+この保存カレントはエネルギー運動量テンソルと呼ばれる。
+それぞれの対応する保存電荷は
+\begin{align}
+    H &= \int d^{d-1}x\, T^{00}\\
+    P^j &= \int d^{d-1}x\, T^{0j}
+\end{align}
+となる。これらがハミルトニアンと運動量である。
 
-\setcounter{equation}{59}
+より一般の場合を見ておこう。
+座標変換が
+\begin{equation*}
+    x'^\mu = (1 -i \omega^\nu G_\nu)x^\mu
+\end{equation*}
+というように書けるとき、\(\epsilon^\mu = i\omega^\nu G_\nu x^\mu\)となるので、
+これを作用の変分の式に入れると
+\begin{equation*}
+    \var{S}
+    = i\omega^\rho \int d^dx\, \qty{\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}}(\partial_\mu G_\rho x^\nu)
+\end{equation*}
+となる。
+
 \section{相関関数と対称性}
 量子論における相関関数\(\ev{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\)に関する対称性を考える。
 
