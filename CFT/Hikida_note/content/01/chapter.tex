@@ -291,8 +291,8 @@
 経路積分を信用しきれていなかった。
 ただこの表式を見ると、n点相関関数というのは基底状態の位置の期待値のような式になっている。
 つまり、ちゃんと基底状態というのあるというのがわかるので少し安心したようである。
-ここら辺のアイデアはファインマンではなく1971に韓国の方 %TODO ちゃんと書く
-による経路積分のレビューで触れられたらしい。 % TODO 論文を引っ張る
+ここら辺のアイデアはファインマンではなく1971に韓国の方 %: TODO ちゃんと書く
+による経路積分のレビューで触れられたらしい。 %: TODO 論文を引っ張る
 
 場の量子論への拡張は\(q\)のみの1自由度系から\(q^a\)の多自由度系へと移り、
 添え字\(a\)として、各点の空間座標\(x^j\)をとればよい。
@@ -326,7 +326,7 @@
 \begin{align}
     \var{S}
     &= \int d^d x\, \qty[\pdv{\mathcal{L}}{\phi}\var{\phi}+\pdv{\mathcal{L}}{(\partial_\mu \phi)}\var(\partial_\mu \phi)] \notag\\
-    &= \int d^d x\, \qty[\pdv{\mathcal{L}}{\phi}-\pdv{(\partial_\mu \phi)}\qty(\pdv{\mathcal{L}}{\partial_\mu \phi})]\var{\phi}
+    &= \int d^d x\, \qty[\pdv{\mathcal{L}}{\phi}-\partial_\mu\pdv{\mathcal{L}}{\partial_\mu \phi}]\var{\phi}
 \end{align}
 よりオイラーラグランジュ方程式
 \begin{equation}
@@ -334,12 +334,12 @@
 \end{equation}
 が得られる。
 
-運動方程式は座標変換に関して共変的でないとならない。
-無限小座標変換として、
+\subsection*{ネーターカレントの導出(不正確)}
+古典的には運動方程式を不変に保つ場の変形を対称性と呼ぶ。
+無限小パラメータ\(\epsilon^a\)と変換の生成子\(G_a\)を導入して場の無限小変換を書くと
 \begin{equation}
-    \phi(x) \rightarrow \phi'(x) = \phi(x) + \epsilon^a G_a \phi(x)
+    \phi(x) \rightarrow \phi'(x) = \phi(x) + \epsilon^a G_a \phi(x).
 \end{equation}
-というのを考える。
 つまり
 \begin{align*}
     \var{\phi}=\epsilon^a G_a \phi
@@ -348,14 +348,14 @@
 なので
 \begin{align}
     \var{S}
-    &= \epsilon^a \int d^d x\, \qty[\pdv{\mathcal{L}}{\phi}G_aa\phi+\pdv{\mathcal{L}}{(\partial_\mu \phi)}\partial_\mu (G_a\phi)] \notag\\
+    &= \epsilon^a \int d^d x\, \qty[\pdv{\mathcal{L}}{\phi}G_a\phi+\pdv{\mathcal{L}}{(\partial_\mu \phi)}\partial_\mu (G_a\phi)] \notag\\
     &= \epsilon^a  \int d^d x\, \qty[
             \qty{\pdv{\mathcal{L}}{\phi}
             -\partial_\mu\qty(\pdv{\mathcal{L}}{(\partial_\mu \phi)})}G_a\phi
             +\partial_\mu\qty(\pdv{\mathcal{L}}{(\partial_\mu\phi)}G_a \phi)
         ]
 \end{align}
-この作用は停留するので、一番右にある項は0になる。
+場が運動方程式を満たす on-shell 条件のもとでは、一番右にある項は0になる。
 \begin{equation}
     j_a^\mu=\pdv{\mathcal{L}}{(\partial_\mu\phi)}G_a\phi
 \end{equation}
@@ -376,6 +376,100 @@
 このように無限小変換に対して不変性があるときには保存量が存在するのがわかる。
 これをネーターの定理といい、その"電荷"密度と流れをまとめてネーターカレントという。
 
+\subsection*{ネーターカレントの導出(ちょっとはまし)}
+座標と場がそれぞれ独立に
+\begin{equation*}
+    x^\mu \rightarrow x'^\mu = x^\mu -{\delta x}^\mu(x),\quad \phi'(x')=\phi(x) + \delta\phi(x)
+\end{equation*}
+というように変化するときの
+ラグランジアン密度の変換を追ってみる。
+\begin{equation*}
+    \mathcal{L}(\phi'(x),\,\partial'_\mu \phi'(x))
+    = \mathcal{L}(\phi(x),\,\partial_\mu \phi(x))
+    + \pdv{\mathcal{L}}{\phi}\var{\phi}
+    + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\var{(\partial_\mu \phi)}
+\end{equation*}
+そして、
+\begin{align*}
+    \partial'_\mu \phi'(x) &= \pdv{x^\nu}{x'_{\mu}}\partial_\nu\phi'(x) = (\delta_\mu^\nu + \partial_\mu {\delta x}^\nu)\partial_\nu(\phi(x)+\var{\phi})\\
+    &\rightarrow \quad \var{(\partial_\mu \phi)} =  \partial_\mu \var{\phi} + (\partial_\mu {\delta x}^\nu) \partial_\nu\phi
+\end{align*}
+よって
+\begin{equation*}
+    \mathcal{L}(\phi'(x),\,\partial'_\mu \phi'(x))
+    = \mathcal{L}(\phi(x),\,\partial_\mu \phi(x))
+    + \pdv{\mathcal{L}}{\phi}\var{\phi}
+    + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\,(\partial_\mu \var{\phi} + (\partial_\mu {\delta x}^\nu) \partial_\nu\phi)
+\end{equation*}
+さらに積分測度の変換
+\begin{equation*}
+    d^dx' = \det(\pdv{x'}{x})=\qty(1 -\partial_\mu {\delta x}^\mu) d^dx
+\end{equation*}
+も考慮して、
+これらより作用の変分は
+\begin{align*}
+    \var{S}
+    &= \int d^dx'\, \mathcal{L}(\phi'(x'),\,\partial'_\mu \phi'(x')) - \int d^dx\, \mathcal{L}(\phi(x),\,\partial_\mu \phi(x))\\
+    &= \int d^dx\, \qty[\qty(1 -\partial_\mu {\delta x}^\mu)\qty{
+        \mathcal{L}(\phi(x),\,\partial_\mu \phi(x))
+        + \pdv{\mathcal{L}}{\phi}\var{\phi}
+        + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\,(\partial_\mu \var{\phi} + (\partial_\mu {\delta x}^\nu) \partial_\nu\phi)
+    }-\mathcal{L}]\\
+    &= \int d^dx\, \qty[\pdv{\mathcal{L}}{\phi}\var{\phi}+\pdv{\mathcal{L}}{(\partial_\mu \phi)}\qty{
+        \partial_\mu\var{\phi}+(\partial_\mu {\delta x}^\nu)(\partial_\nu \phi)} -\mathcal{L}(\partial_\mu {\delta x}^\mu)]\\
+    &= \int d^dx\, \qty[\partial_\mu\qty{\pdv{\mathcal{L}}{(\partial_\mu \phi)}\underlineset{Lie 微分 \bar{\delta}\phi}{\qty(\var{\phi}+{\delta x}^\nu \partial_\nu \phi)}-\mathcal{L}{\delta x}^\mu}
+        + \underlineset{\delta\mathcal{L}/\delta\phi}{\qty{\pdv{\mathcal{L}}{\phi}-\partial_\mu\pdv{\mathcal{L}}{(\partial_\mu \phi)}}}\var{\phi} -{\delta x}^\nu \partial_\mu \qty(\pdv{\mathcal{L}}{(\partial_\mu \phi)}\,(\partial_\nu \phi))
+        +{\delta x}^\mu\partial_\mu \mathcal{L}]
+\end{align*}
+となる。
+下線の Lie 微分は
+\begin{equation*}
+    \bar{\delta}\phi(x) := \phi'(x)-\phi(x) = \phi(x+{\delta x})+ \delta\phi(x+{\delta x}) -\phi(x) = \delta\phi(x) + {\delta x}^\nu \partial_\nu \phi(x)
+\end{equation*}
+であり、ラグランジアン密度の変分はオイラーラグランジュ方程式のことであることを使った。 %: TODO これが Lie 微分ってどういうこと?
+あんまり想像できないが、ラグランジアンが座標に陽に依存しているときには
+\begin{equation*}
+    \partial_\mu \mathcal{L}
+    = \pdv{\mathcal{L}}{\phi}\partial_\mu\phi
+    +\pdv{\mathcal{L}}{(\partial_\nu\phi)}\partial_\mu\partial_\nu\phi
+    +\hat{\partial}_\mu \mathcal{L}
+\end{equation*}
+というように書ける。
+ここで\(\hat{\partial}_\mu\)はラグランジアンの座標に陽に依存する部分を微分するものである。
+よって作用の変分は
+\begin{equation*}
+    \var{S}
+    = \int d^dx\, \qty[\partial_\mu\qty{\pdv{\mathcal{L}}{(\partial_\mu \phi)}\bar{\delta}\phi-\mathcal{L}{\delta x}^\mu}
+        + \fdv{\mathcal{L}}{\phi}\bar{\delta}\phi+\hat{\partial}_\mu \mathcal{L}{\delta x}^\mu]
+\end{equation*}
+場がオイラーラグランジュ方程式を満たす on-shell 条件かつ、ラグランジアンが座標に陽に依存しないとき、作用の変分は
+\begin{equation*}
+    \var{S} = \int d^dx\, \qty[\partial_\mu\qty{\pdv{\mathcal{L}}{(\partial_\mu \phi)}\bar{\delta}\phi-\mathcal{L}{\delta x}^\mu}]
+\end{equation*}
+となる。これが 0 となるには
+\begin{equation*}
+    0= \partial_\mu\qty{\pdv{\mathcal{L}}{(\partial_\mu \phi)}\bar{\delta}\phi-\mathcal{L}{\delta x}^\mu} =: \epsilon\partial_\mu j^\mu
+\end{equation*}
+というようになる。ここでの\(\epsilon\)は変分の微小パラメータのイメージ。
+この\(j^\mu\)をネーターカレントといい、Lie 微分を書き下して、外微分の性質による自由度を加えると
+\begin{equation*}
+    \epsilon j^\mu = \pdv{\mathcal{L}}{(\partial_\mu \phi)}\delta\phi
+    + {\delta x}^\nu\qty(\pdv{\mathcal{L}}{(\partial_\mu \phi)}\partial_\nu \phi - \delta_\nu^\mu\mathcal{L})
+    + \partial_\nu \underlineset{反対称}{B^{\mu\nu}} \tag{1.A}
+\end{equation*}
+というようになる。
+スカラー場でないような座標変換とともに場も変化するときには、
+余った反対称テンソルの成分を使って場の変換を打ち消したりするらしい。
+
+座標変換による変化を見るとなったとき、
+座標はそのままで場自体が変わる能動的変換では\(\delta\phi\)のみが変わり、
+場は動かさず座標が変わる受動的変換では\({\delta x}\)のみが変わる。
+教科書ではこの両者を混ぜて使っているので混乱の原因になっている。
+(1.50)式の指しているネーターカレントは座標系が変わらず場のみが変化している状況である。
+本文もそのように書いているが(1.57)式では座標系のみが変化したときのネーターカレントとなっている。
+この描像の切り替わりについて説明すればよいものを、スカラー場の変換を扱うと言ってごまかしているのだ。
+%: TODO 生成子使った表現にしたいね
+
 \subsection*{例1:並進対称性}
 スカラー場が並進対称性つまり、
 座標を
@@ -392,38 +486,13 @@
 \begin{equation}
     \phi(x) \rightarrow \phi'(x) = \phi(x+\epsilon) = \phi(x) + \epsilon^\mu\partial_\mu \phi(x)
 \end{equation}
-というように書くことができる。
-この式は座標が動くといった描像が、場自体が動いたという描像に変わっているのに注意したい。
-ラグランジアン密度の変換を追ってみる。
-\begin{align*}
-    \mathcal{L}(\phi'(x'),\,\partial'_\mu \phi'(x'))
-    &= \mathcal{L}(\phi(x),\,\partial'_\mu \phi(x)) \\
-    &= \mathcal{L}(\phi(x),\,\partial_\mu \phi(x)) + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\var{(\partial_\mu \phi)}
-\end{align*}
-そして、
-\begin{align*}
-    \partial'_\mu \phi'(x') &= \pdv{x^\nu}{x'_{\mu}}\partial_\nu\phi(x) = (\delta_\mu^\nu + \partial_\mu \epsilon^\nu)\partial_\nu\phi(x)\\
-    &\rightarrow \quad \var{(\partial_\mu \phi)} =  (\partial_\mu \epsilon^\nu) \partial_\nu\phi
-\end{align*}
-よって
-\begin{equation}
-    \mathcal{L}(\phi'(x),\,\partial'_\mu \phi'(x))
-    =\mathcal{L}(\phi(x),\,\partial_\mu \phi(x)) + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\,(\partial_\mu \epsilon^\nu) \partial_\nu\phi
-\end{equation}
-さらに積分測度の変換
+というように書くことができる(Lie 微分)。
+それとは関係なくネーターカレントの式(1.A)に\(\delta\phi=0,\,\delta x^\nu=\epsilon^\nu\)を入れてやる。
+このとき、微小パラメータは1成分だけでなく各方向ごとにあるので
 \begin{equation*}
-    d^dx' = \det(\pdv{x'}{x})=\qty(1 -\partial_\mu \epsilon^\mu) d^dx
+    \epsilon^\mu j^\nu = T^{\mu\nu}
 \end{equation*}
-も考慮して、
-これらより作用の変分は
-\begin{align*}
-    \var{S}
-    &= \int d^dx'\, \mathcal{L}(\phi'(x'),\,\partial'_\mu \phi'(x')) - \int d^dx\, \mathcal{L}(\phi(x),\,\partial_\mu \phi(x))\\
-    &= \int d^dx\, \qty[\qty(1 -\partial_\mu \epsilon^\mu)\qty{\mathcal{L} + \pdv{\mathcal{L}}{(\partial_\mu\phi)}\,(\partial_\mu \epsilon^\nu) \partial_\nu\phi}
-    -\mathcal{L}]\\
-    &= \int d^dx\, \qty{\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}}(\partial_\mu \epsilon^\nu)
-\end{align*}
-これより保存カレントは
+のようにネーターカレントの足が増えるので、
 \begin{equation}
     T\indices{^\mu_\nu} = \pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}
 \end{equation}
@@ -436,24 +505,32 @@
 \end{align}
 となる。これらがハミルトニアンと運動量である。
 
-より一般の場合を見ておこう。
-座標変換が
+\subsection*{例2:回転対称性}
+回転を表す無限小回転
 \begin{equation*}
-    x'^\mu = (1 -i \omega^\nu G_\nu)x^\mu
+    x^\mu \rightarrow x'^\mu = x^\mu - \epsilon^{\mu\nu}x_\nu
 \end{equation*}
-というように書けるとき、\(\epsilon^\mu = i\omega^\nu G_\nu x^\mu\)となるので、
-これを作用の変分の式に入れると
+とスカラー場を考える。
+このときのネーターカレントは(1.A)式より
+\begin{align*}
+    \epsilon j^\mu
+    = \epsilon^{\nu\rho}x_\rho\qty(\pdv{\mathcal{L}}{(\partial^\mu \phi)}\,(\partial_\nu \phi) - \delta\indices{^\mu_\nu}\mathcal{L})
+    = \epsilon^{\nu\rho}x_\rho T\indices{^\mu_\nu}
+    = \frac{1}{2}\epsilon^{\nu\rho}\qty(x_\rho T\indices{^\mu_\nu}-x_\nu T\indices{^\mu_\rho})
+\end{align*}
+回転の無限小パラメータは\(\epsilon^{\mu\nu}/2\)のようにとる習わしであるので回転変換に対するネーターカレントは
 \begin{equation*}
-    \var{S}
-    = i\omega^\rho \int d^dx\, \qty{\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}}(\partial_\mu G_\rho x^\nu)
+    j\indices{^\mu_\nu_\rho} = x_\rho T\indices{^\mu_\nu}-x_\nu T\indices{^\mu_\rho}
 \end{equation*}
-となる。
+となる。ここで試しに触ってみたように座標系のみが変換するといったときにはエネルギー運動量テンソルが現れることがわかる。
+共形場理論においてこのエネルギー運動量テンソルは大事な量なのだ。
 
 \section{相関関数と対称性}
 量子論における相関関数\(\ev{\phi(x_1)\phi(x_2)\cdots\phi(x_n)}\)に関する対称性を考える。
 
 ユークリッド背景の下での相関関数は、経路積分の言葉では(1.43)のようにあらわすことができる。
 場\(\phi(x)\)と結合する外場\(J(x)\)を導入して、生成汎関数
+\setcounter{equation}{59}
 \begin{equation}
     Z{j} = \int [d\phi] \exp[-S(\phi)+\int d^dx\, J(x)\phi(x)]
 \end{equation}

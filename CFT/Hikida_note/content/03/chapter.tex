@@ -5,7 +5,181 @@
 \begin{document}
 
 \chapter{2次元の共形場理論}
+\section{2次元の共形対称性}
+計量テンソルの変換性を通して共形変換を定義した。
+その際、共形 Killing 方程式を解いていくと\(d=1\)や\(d=2\)では条件が緩くなることがわかった。
+これはつまり低次元では対称性がより大きくなることがわかる。
+物性への応用といったときもここら辺が気になる点である。
+ここでは\(d=2\)の2次元系を見ていこう。
 
+この章では座標の無限小変換といったときには
+\begin{equation*}
+    x^\mu \rightarrow x'^\mu = x^\mu + \epsilon^\mu
+\end{equation*}
+のように符号を取り換える。
+つまり場そのものを並進操作したり回転させていく。
+2次元の共形変換の無限小パラメータの満たすべき式は
+(2.12)式と(2.13)式を組み合わせて、
+\begin{equation}
+    \partial_\mu \epsilon_\nu + \partial_\nu \epsilon_\mu = \partial_\rho \epsilon^\rho \eta_{\mu\nu}
+\end{equation}
+となる。今はユークリッド化をしているのを思い出そう。
+この式を成分で書き下すと
+\begin{align}
+    \pdv{\epsilon_1(x_1,\,x_2)}{x^1} &= \pdv{\epsilon_2(x_1,\,x_2)}{x^2} \\
+    \pdv{\epsilon_1(x_1,\,x_2)}{x^2} &= -\pdv{\epsilon_2(x_1,\,x_2)}{x^1}
+\end{align}
+となる。
+これは複素関数論における正則関数のコーシーリーマンの方程式になっている。
+そこで複素座標を
+\begin{equation}
+    z = x^1 + ix^2,\quad \bar{z} = x^1 -ix^2
+\end{equation}
+で定義する。
+これは\(x_1\)を空間座標、\(x_2\)を時間座標と思ってみると光円錐座標に相当する。
+また、無限小パラメータの方も
+\begin{equation}
+    \epsilon \equiv \epsilon^z = \epsilon^1 + i\epsilon^2,\quad \bar{\epsilon} \equiv \epsilon^{\bar{z}} = \epsilon^1 - i\epsilon^2
+\end{equation}
+というように定義する。
+これを導入すると、
+\begin{align*}
+    \pdv{z}
+        &= \pdv{x^1}{z}\pdv{x^1} + \pdv{x^2}{z}\pdv{x^2} \\
+        &= \qty(\pdv{z} \frac{z+\bar{z}}{2})\pdv{x^1} + \qty(\pdv{z} \frac{z-\bar{z}}{2i})\pdv{x^2}\\
+        &= \frac{1}{2}\qty(\pdv{x^1}-i\pdv{x^2})
+\end{align*}
+というように微分を書き換えることができるので
+(3.2)式と(3.3)式は
+\begin{equation}
+    \bar{\partial}\epsilon(z,\,\bar{z}) = 0,\quad \bar{\partial}\epsilon(z,\,\bar{z})=0
+\end{equation}
+のように書き直せる。
+\footnote{微分形式でかくこともできそうである。}%: TODO ちゃんと調べる。
+ここで微分演算子を
+\begin{align}
+    \partial \equiv \pdv{z} &= \frac{1}{2}\qty(\pdv{x^1}-i\pdv{x^2})\\
+    \bar{\partial} \equiv \pdv{\bar{z}} &= \frac{1}{2}\qty(\pdv{x^1}+i\pdv{x^2})
+\end{align}
+とおいた。
 
+複素座標を用いると線素は
+\begin{equation}
+    ds^2 = \eta_{\mu\nu}dx^\mu dx^\nu = dz d\bar{z}
+\end{equation}
+のように書ける。
+これより計量テンソルは
+\begin{equation}
+    \begin{split}
+        &g_{z\bar{z}} = g_{\bar{z}z} = \frac{1}{2},\quad g^{z\bar{z}} = g^{\bar{z} z} = 2\\
+        &g_{zz} = g_{\bar{z}\bar{z}} = g^{zz} = g^{\bar{z}\bar{z}} =0
+    \end{split}
+\end{equation}
+とわかる。
+
+ここまでは無限小変換を考えていたが、
+有限変換では正則変換
+\begin{equation}
+    w\rightarrow w(z),\quad \bar{z} \rightarrow \bar{w}(\bar{z})
+\end{equation}
+が許される。
+実際、線素の変わり方を見ると
+\begin{equation}
+    ds^2 = dz d\bar{z} \rightarrow dw d\bar{w} = \qty(\dv{w}{z})\qty(\dv{\bar{w}}{\bar{z}})dz d\bar{z}
+\end{equation}
+より計量が定数倍のみ変わっているのがわかる。
+ここまでの結果を微分幾何っぽく表現すると、
+2次元の無限小共形変換は正則なベクトル場であり、
+有限の共形変換は正則な微分同相であるということができる。
+
+局所的に成り立つコーシーリーマンの関係式から変換を見ていったが、
+これが大域的、つまりリーマン面全体で使えるような変換はどのようなものかを見ていく。
+このとき、変換の生成子はどのようなものかというのを考えるのが筋である。
+座標の無限小変換のうち、
+\begin{equation}
+    z \rightarrow z' = z + \epsilon(z),\quad \bar{z} \rightarrow \bar{z}' = \bar{z} + \bar{\epsilon}(\bar{z})
+\end{equation}
+の形のものが共形変換を生成することが分かった。
+ここで、無限小変換のパラメータを
+\begin{align}
+    \epsilon(z) &= \sum_{n=-\infty}^{\infty}c_n z^{n+1}\\
+    \bar{\epsilon}(\bar{z}) &= \sum_{n=-\infty}^{\infty}\bar{c}_n \bar{z}^{n+1}
+\end{align}
+のように座標で展開してみる。
+すると座標変換は
+\begin{equation*}
+    z \rightarrow z' = \qty(1 - \sum_{n=-\infty}^{\infty}c_n \underlineset{=:l_n}{(-z^{n+1}\partial)} )z
+\end{equation*}
+というようになる。
+これより生成子を
+\begin{equation}
+    l_n =  -z^{n+1}\partial,\quad \bar{l}_n = -\bar{z}^{n+1}\bar{\partial}
+\end{equation}
+というように導入できる。この生成子はある意味複素ベクトル場とみなすことができる。
+生成子を導入したので交換関係を書くと、
+\begin{align}
+    [l_m,\,l_n] &= (m-n)l_{m+n}\\
+    [\bar{l}_m,\,\bar{l}_n] &= (m-n) \bar{l}_{m+n}\\
+    [l_m,\,\bar{l}_n] &= 0
+\end{align}
+となる。
+実際、
+\begin{align*}
+    [l_m,\,l_n] &= [z^{m+1}\partial,\,z^{n+1}\partial] = z^{m+1}[\partial,\,z^{n+1}]\partial + z^{n+1}[z^{m+1},\,\partial]\partial\\
+    &=(n+1)z^{m+n+1}\partial -(m+1)z^{m+n+1}\partial = (m-n)l_{m+n}
+\end{align*}
+である。
+リー代数を考えるときには交換関係のみが大事になる。
+この変形を見てわかるように無限小パラメータの\(\epsilon=\sum c_n z^{n+1}\)の\(z\)の次数は適当に決めてもよさそうである。
+なので\(\epsilon= \sum c_n z^{n+10}\)とかにしても問題ないように見える。
+
+3次元以上では並進・回転・拡大・反並反操作の4種類であった生成子が
+2次元では加算無限個あることがわかる。つまり対称性がとんでもなく広がっていると言える。
+生成子が無限個あることから無限次元のリー代数を作ることになる。
+そういった点が数学的にも注目される点である。
+また、正則関数\(z\)と反正則関数\(\bar{z}\)が独立になっているのも重要な点になっている。
+
+では無限小変換から大域的な変換に直していこう。
+生成子が\(z=0\)近傍で正則であるためには\(n\geq -1\)である必要があるのがわかる。
+次に無限遠点\(z=\epsilon\)近傍で正則であるのを確かめる必要がある。
+その条件を調べるには\(w=1/z\)というように座標変換をして\(w=0\)周りのふるまいを見ればよい。
+\begin{equation}
+    l_n = -z^{n+1}\partial_z = -\qty(\frac{1}{w})^{n+1}\qty(\dv{w}{t})\partial_w = \qty(\frac{1}{w})^{n-1}\partial_w
+\end{equation}
+これより\(n\leq 1\)であればよいことがわかる。
+リーマン球でこれ以外に特異点はないと考えれる。
+なので大域的に定義できるのは\(n=-1,\,0,\,1\)の場合である。
+しかもこれらは部分代数となっている。この部分代数を大域的共形代数という。
+この部分代数の生成子の具体的な表式を見てみよう。
+まずは\(n=-1\)のとき、
+\begin{equation*}
+    l_{-1} = -\partial,\quad \bar{l}_{-1} = -\bar{\partial}.
+\end{equation*}
+これはつまり、複素平面でいうところの\(\theta=\pm \pi/4\)度方向への並進操作に対応している
+\footnote{光円錐座標だと光の世界線上の移動?}。
+座標変換の式で表すと
+\begin{equation*}
+    z\rightarrow z' = z + b.
+\end{equation*}
+
+次に\(n=0\)のとき、
+\begin{align*}
+    &l_0 = -z\partial,\quad \bar{l}_0 = -\bar{z}\bar{\partial}\\
+    &\quad \rightarrow l_0 + \bar{l}_0 = x^1\partial_1 + x^2\partial_2\\
+    &\quad \rightarrow i(l_0-\bar{l}_0) = x^1\partial_2 -x^2\partial_1
+\end{align*}
+となる。これはつまり拡大と回転を表している。
+座標変換の式で表すと
+\begin{equation*}
+    z\rightarrow z'= az.
+\end{equation*}
+
+では\(l=2\)のとき、
+\begin{align*}
+    &l_{1} = -z^2\partial,\quad \bar{l}_{1} = -z^2\bar{\partial}\\
+    &\quad \rightarrow l_1 + \bar{l}_1 = (x^{(1)2}-x^{(2)2})\partial_1 - 2x^1x^2\partial_2\\
+    &\quad \rightarrow i(l_1-\bar{l}_1) = -(x^{(1)2}-x^{(2)2})\partial_2 + 2x^1x^2\partial_1
+\end{align*}
+となる。これは特殊共形変換(2.25)の生成子と同じになっている。%: TODO どう対応しているか示す。
 
 \end{document}

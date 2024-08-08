@@ -515,6 +515,14 @@
     \mathscr{P}_\mu &:= -i\partial_\mu
 \end{align}
 というように準プライマリ場対する並進変換の生成子\(\mathscr{P}_\mu\)が得られた。
+ここで場の無限小変換は座標とは違い、
+\begin{equation*}
+    \mathcal{O}' = (1 +iG_a \epsilon^a)\mathcal{O}
+\end{equation*}
+というように生成子の前の符号はプラスとなる。
+\footnote{ただし、ここでは物理でよくやる手続きで生成子をエルミートにするために虚数をつけているが、
+この虚数は別に必要ではない。なんならこの後 Ward-高橋恒等式 に使う際、この本では虚数を外す。
+Fracesco はそのままつけてる。}
 
 次に\(b_{\mu\nu}\)の対称成分だけ取り出してスケール変換をしてみるとする。
 すると\(\epsilon_\mu = b \eta_{\mu\nu}x^\nu\)を入れて
@@ -544,7 +552,7 @@
 というようにして準プライマリ場に対する回転変換の生成子\(\mathscr{L}_{\mu\nu}\)が得られた。
 
 最後に\(c_{\mu\nu\rho}\)の部分だけを取り出して特殊共形変換をするというのもよいが、
-反転と並進を組み合わせて生成子を作ろう? %TODO:
+反転と並進を組み合わせて生成子を作ろう? %: TODO 特殊共形変換に対する無限小変換の生成子の導出
 
 これより
 \begin{equation}
@@ -970,18 +978,109 @@ Ker の分の自由度はどのようにとっても良いが、
     = \mathcal{L}(x) + \epsilon^{\mu\nu}x_\nu\partial_\mu\mathcal{L}(x)
 \end{align}
 というように変換する。
-作用の変分は
+このときのネーターカレントは(1.A)式より
 \begin{align*}
-    \var{S}
-    &= \int d^dx\, \qty{\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}}(\partial_\mu \epsilon^\nu)\\
-    &= \int d^dx\, \qty{\pdv{\mathcal{L}}{(\partial_\mu\phi)}\partial_\nu\phi - \delta_\nu^\mu \mathcal{L}}(\partial_\mu \epsilon^{\nu\rho}x_\rho)\\
+    \epsilon j^\mu
+    = \epsilon^{\nu\rho}x_\rho\qty(\pdv{\mathcal{L}}{(\partial^\mu \phi)}\,(\partial_\nu \phi) - \delta\indices{^\mu_\nu}\mathcal{L})
+    = \epsilon^{\nu\rho}x_\rho T\indices{^\mu_\nu}
+    = \frac{1}{2}\epsilon^{\nu\rho}\qty(x_\rho T\indices{^\mu_\nu}-x_\nu T\indices{^\mu_\rho})
 \end{align*}
+回転の無限小パラメータは\(\epsilon^{\mu\nu}/2\)のようにとる習わしであるので回転変換に対するネーターカレントは
+\begin{equation}
+    j\indices{^\mu_\nu_\rho} = x_\rho T\indices{^\mu_\nu}-x_\nu T\indices{^\mu_\rho}
+\end{equation}
+となる。
 
-
-なのでカレントは
+次にスケール変換
+\begin{equation}
+    x^\mu \rightarrow x'^\mu = x^\mu -\omega^\mu(x), \quad \omega^\mu(x) = \epsilon x^\mu
+\end{equation}
+をする。
+このとき、準プライマリ場
+\footnote{本文だとスカラー場だと言ってるがそれなら共形次元は現れるはずがない。}
+のように変換する共形次元が\(\Delta\)の場\(\varphi\)とラグランジアン密度は
 \begin{align}
-    j\indices{^\mu_\nu_\rho} = \pdv{\mathcal{L}}{(\partial_\mu \phi)} L_{\nu\rho}\phi
+    \varphi(x)&\rightarrow \varphi'(x)
+    =\varphi(x) + \epsilon(x^\mu\partial_\mu+\Delta)\varphi(x)
+    = \Delta \varphi(x) + \epsilon^\nu \partial_\nu \varphi\\
+    \mathcal{L}(x) &\rightarrow \mathcal{L}(x')
+    = \mathcal{L}(x) + \epsilon(x^\mu\partial_\mu + d)\mathcal{L}(x)
+    = \mathcal{L}(x) + \epsilon \partial_\mu x^\mu \mathcal{L}(x)
 \end{align}
+というように変化する。
+つまりこのような場の変分は\(\delta\varphi = \Delta\varphi(x)\)である。
+(1.A)式より、場の変分も考慮したネーターカレントは
+\begin{align}
+    \epsilon j^\mu &= \pdv{\mathcal{L}}{(\partial_\mu \phi)}\Delta\varphi(x)
+    + \epsilon x^\nu\qty(\pdv{\mathcal{L}}{(\partial_\mu \phi)}\partial_\nu \phi - \delta_\nu^\mu\mathcal{L})\notag\\
+    j^\mu &= T\indices{^\mu_\nu}x^\nu + V^\mu\\
+    V^\mu &= \pdv{\mathcal{L}}{(\partial_\mu \phi)}\Delta\varphi(x)
+\end{align}
+と書ける。ここで新しく導入した\(V^\mu\)はビリアルカレントと呼ばれる。
+ただ、このビリアルカレントはネーターカレントの外微分による自由度で
+\begin{equation}
+    V^\mu = \partial_\nu \sigma^{\mu\nu}
+\end{equation}
+となるように取れば、カレントから取り除くことができる。
+なのでこういった準プライマリ場であっても普通のスカラー場と同様に
+カレントを
+\begin{equation}
+    j^\mu = T\indices{^\mu_\nu}x^\nu
+\end{equation}
+とできる。
+また、エネルギー運動量テンソルは座標に陽に依存しないとしてこれの湧き出しを計算すると
+\begin{equation}
+    0 = \partial_\mu j^\mu = T\indices{^\mu_\mu}
+\end{equation}
+というトレースレス条件が付く。
 
+\subsection*{Ward-高橋恒等式とエネルギー運動量テンソル}
+保存カレントがあるので Ward-高橋恒等式が得られる。
+まずは並進操作について考えよう。
+ここで教科書はなぜか生成子のエルミート化をやめて
+\begin{equation}
+    G^\mu \mathcal{O} = \partial^\mu \mathcal{O}
+\end{equation}
+と生成子をとりなおしている。
+すると Ward-高橋恒等式より
+\begin{equation}
+    \partial_\mu\ev{T^{\mu\nu}\mathcal{O}_1(x_1)\cdots\mathcal{O}_n(x_n)}
+    = - \sum_{j=1}^n \delta(x-x_j)\ev{\mathcal{O}_1(x_1)\cdots[\partial_j^\nu\mathcal{O}_j(x_j)]\cdots\mathcal{O}_n(x_n)}
+\end{equation}
+となる\footnote{生成子をエルミート化したときには右辺に \(i\) がかかる。}。
+ここでは微分の線形性を使って外に出した。
+
+回転のときには生成子を
+\begin{equation}
+    G^{\mu\nu}\mathcal{O} = -(x^\mu\partial^\nu-x^\nu\partial^\mu + \Sigma^{\mu\nu})\mathcal{O}
+\end{equation}
+としたとき、Ward-高橋恒等式は
+\begin{align}
+    \partial_\mu\ev{(T^{\mu\nu}x^\rho - T^{\mu\rho}x^\nu)\mathcal{O}_1(x_1)\cdots\mathcal{O}_n(x_n)}
+    &= \sum_{j=1}^n \delta(x-x_j)\ev{
+        \mathcal{O}_1(x_1)\cdots [
+            (x_j^\nu\partial_j^\rho-x_j^\rho\partial_j^\nu + \Sigma_j^{\nu\rho})\mathcal{O}_j(x_j)
+        ]\cdots\mathcal{O}_n(x_n)}\\
+    \ev{(T^{\rho\nu} - T^{\nu\rho})\mathcal{O}_1(x_1)\cdots\mathcal{O}_n(x_n)}
+    &= \sum_{j=1}^n \delta(x-x_j)\ev{
+        \mathcal{O}_1(x_1)\cdots [
+            \Sigma_j^{\nu\rho}\mathcal{O}_j(x_j)
+        ]\cdots\mathcal{O}_n(x_n)}
+\end{align}
+となる。 %: TODO 109式の変形がわからない。
+演算子が挿入されている点以外では、エネルギー運動量テンソルは対称テンソルになっている\footnote{反対称では?}。
+
+最後にスケール変換については
+生成子は
+\begin{equation}
+    G\mathcal{O} = (x^\mu\partial_\mu + \Delta)\mathcal{O}
+\end{equation}
+なので Ward-高橋恒等式は
+\begin{align}
+    \partial_\mu\ev{T^{\mu\nu}x_\nu \mathcal{O}_1(x_1)\cdots\mathcal{O}_n(x_n)}
+    &= - \sum_{j=1}^n \delta(x-x_j)\ev{\mathcal{O}_1(x_1)\cdots[(x_j^\mu\partial_{j\mu}+\Delta_j)\mathcal{O}_j(x_j)]\cdots\mathcal{O}_n(x_n)}\\
+    \ev{T\indices{^\mu_\mu}\mathcal{O}_1(x_1)\cdots\mathcal{O}_n(x_n)}
+    &= - \sum_{j=1}^n \delta(x-x_j)\Delta_j\ev{\mathcal{O}_1(x_1)\cdots\mathcal{O}_n(x_n)}
+\end{align}
 
 \end{document}
