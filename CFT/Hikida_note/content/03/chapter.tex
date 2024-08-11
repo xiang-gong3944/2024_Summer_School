@@ -4,6 +4,7 @@
 
 \begin{document}
 
+\setcounter{chapter}{2}
 \chapter{2次元の共形場理論}
 \section{2次元の共形対称性}
 計量テンソルの変換性を通して共形変換を定義した。
@@ -181,5 +182,212 @@
     &\quad \rightarrow i(l_1-\bar{l}_1) = -(x^{(1)2}-x^{(2)2})\partial_2 + 2x^1x^2\partial_1
 \end{align*}
 となる。これは特殊共形変換(2.25)の生成子と同じになっている。%: TODO どう対応しているか示す。
+これは座標変換の式で表すと
+\begin{equation*}
+    \frac{1}{z'} = \frac{1}{z} + c \rightarrow z' = \frac{z}{cz+1}
+\end{equation*}
+と書くことができる。
+これらの生成子から生成される無限小変換によって座標は
+\begin{equation}
+    z \rightarrow z' = \frac{az+b}{cz +d}\quad (ad-bc=1)
+\end{equation}
+と変換されるのがわかる。
+また、\(z=z_1/z_2\)というように\(z\)が射影空間の元だということを明記するとこの変換は
+\begin{equation}
+    \begin{pmatrix}
+        z_1\\ z_2
+    \end{pmatrix}
+    \rightarrow
+    \begin{pmatrix}
+        z'_1 \\z'_2
+    \end{pmatrix}
+    = \begin{pmatrix}
+        a & b\\
+        c & d
+    \end{pmatrix}
+    \begin{pmatrix}
+        z_1 \\ z_2
+    \end{pmatrix}
+    \quad (ad-bc=1)
+\end{equation}
+というように書くことができる。
+つまり射影空間\(CP\)に\(SL(2,\,\mathbb{C})/\mathbb{Z}_2\)が作用していると言える。
+ただしこの\(\mathbb{Z}_2\)は反転操作\((a,\,b,\,c,\,d)\rightarrow(-a,\,-b,\,-c,\,-d)\)をしても作用が変わらないことを表している。
+
+\section{プライマリ場と相関関数}
+2次元の共形変換に関して、場がどう変わるかを調べる。
+座標変換\(z\rightarrow w(z)\)のもとで場が
+\begin{equation}
+    \mathcal{O}'(w,\,\bar{w}) = \qty(\dv{z}{w})^{h}\qty(\dv{\bar{z}}{\bar{w}})^{\bar{h}}\mathcal{O}(z,\,\bar{z})
+\end{equation}
+というように変換するものに注目する。
+これは
+\begin{equation*}
+    \mathcal{O}_{z_1\cdots z_h \bar{z}_1\cdots \bar{z}_{\bar{h}}}dz^1\cdots dz^h d\bar{z}^1\cdots d\bar{z}^{\bar{h}}
+\end{equation*}
+というテンソル場と同じ変換をしている。
+このパラメータ\((h,\,\bar{h})\)は共形ウェイトと呼ばれ、
+共形次元を\(\Delta\), 2次元回転のスピンを\(s\)としたとき、
+\begin{equation}
+    \Delta =h + \bar{h},\quad s = h - \bar{h}
+\end{equation}
+で関係づけられる。
+このことはスケール変換\(w=\lambda z\)と回転変換\(w=e^{i\theta}z\)に対して
+\begin{align}
+    \mathcal{O}'(\lambda z,\,\lambda\bar{z}) &= \lambda^{-(h + \bar{h})}\mathcal{O}(z,\,\bar{z})\\
+    \mathcal{O}'(e^{i\theta} z,\,e^{-i\theta}\bar{z}) &= e^{-i(h-\bar{h})\theta}\mathcal{O}(z,\,\bar{z})
+\end{align}
+というように変換することからわかる。
+(3.21)式の分数変換で与えられる大域的共形変換において、(3.23)式を満たす場を準プライマリ場という。
+一方、任意の正則関数\(w(z)\)に関して成り立つ場合にはプライマリ場と呼ぶ。
+この定義より、プライマリ場ならば準プライマリ場であるが、準プライマリ場ならばプライマリ場とは限らない。
+
+プライマリ場は局所共形変換に対する変換で特徴づけることができる。
+無限小変換\(z\rightarrow z' = z - \epsilon(z)\)を考える。
+空間そのものが共形変換して、座標と場両方とも変化して生じる差分
+\(\delta\mathcal{O}=\mathcal{O}'(w,\,\bar{w})-\mathcal{O}(z,\,\bar{z})\)は
+\begin{align*}
+    \mathcal{O}'(w,\,\bar{w})
+    &= (1-\partial\epsilon)^h(1-\bar{\partial}\bar{\epsilon})^{\bar{h}}\mathcal{O}(z,\,\bar{z})
+    = \mathcal{O}(z,\,\bar{z}) +(\partial\epsilon+\bar{\partial}\bar{\epsilon})\mathcal{O}(z,\,\bar{z})\\
+    &\rightarrow \delta \mathcal{O} = (\partial\epsilon+\bar{\partial}\bar{\epsilon})\mathcal{O}(z,\,\bar{z})
+\end{align*}
+である。
+一方共形変換したとき、同じ位置における場の変化の差分
+\(\bar{\delta}\mathcal{O}=\mathcal{O}'(z,\,\bar{z})-\mathcal{O}(z,\,\bar{z})\)は
+\begin{align}
+    \bar{\delta}\mathcal{O}
+    &= \mathcal{O}'(z,\,\bar{z})-\mathcal{O}'(w,\,\bar{w}) + \mathcal{O}'(w,\,\bar{w}) -\mathcal{O}(z,\,\bar{z})\notag\\
+    &= \mathcal{O}'(z,\,\bar{z}) -\qty(
+        \mathcal{O}'(z,\,\bar{z}) - \epsilon\partial\mathcal{O}'(z,\,\bar{z})-\bar{\epsilon}\bar{\partial}\mathcal{O}'(z,\,\bar{z}))
+        +\delta\mathcal{O}\notag\\
+    &= \epsilon\partial\mathcal{O}-\bar{\epsilon}\bar{\partial}\mathcal{O}
+    + (\partial\epsilon+\bar{\partial}\bar{\epsilon})\mathcal{O}(z,\,\bar{z})\notag\\
+    &= (h\partial+\epsilon \partial)\mathcal{O}(z,\,\bar{z}) +(\bar{h}\bar{\partial}+\bar{\epsilon} \bar{\partial})\mathcal{O}(z,\,\bar{z})
+\end{align}
+というようになる。同じ位置における場の変換則によって場を特徴づけできるのでこれをプライマリ場の定義式とみなすことができる
+\footnote{江口読んでると何か勘違いしてるような気がして来る}。
+またこの式を見るとプライマリ場は共形ウェイト\((h,\,0)\)を持つ正則部分と
+\((0,\,\bar{h})\)を持つ反正則部分に因子化しているのがわかる。
+つまり、
+\begin{equation*}
+    \mathcal{O}_{h,\,\bar{h}}(z,\,\bar{z}) = \mathcal{O}_{h}(z)\mathcal{O}_{\bar{h}}(\bar{z})
+\end{equation*}
+なのでこれを使うと大域的共形変換に対する相関関数の制約は2章でやった結果をそのまま流用できるのがわかる。
+残りこの節は割愛。
+\setcounter{equation}{40}
+
+\section{共形 Ward-高橋恒等式}
+Ward-高橋恒等式のデルタ関数を留数定理による表現に変えてみる。
+目標は
+\begin{equation}
+    \delta(z,\,\bar{z}) = \frac{1}{\pi}\bar{\partial}\frac{1}{z},\quad
+    \delta(z,\,\bar{z}) = \frac{1}{\pi}\partial\frac{1}{\bar{z}}
+\end{equation}
+である。ここで左辺のデルタ関数は\(z=0,\,\bar{z}=0\)のときの値を返すものである。
+そのためにグリーンの定理
+\begin{equation}
+    \int_R d^2x \qty(-\pdv{v^1(x^1,\,x^2)}{x^2}+\pdv{v^2(x^1,\,x^2)}{x^1})
+    = \int_{\partial R} v^1(x^1,\,x^2)dx^1+v^2(x^1,\,x^2)dx^2
+\end{equation}
+を複素関数に利用する。
+1次元の複素数の 1-form 等は
+\begin{equation}
+    dz = dx^1+idx^2,\quad d\bar{z} = dx^1-idx^2
+\end{equation}
+\begin{align*}
+    &\partial_1 = \partial +\bar{\partial},& &\partial_2 = i(\partial-\bar{\partial})\\
+    &v^1 = \frac{v+\bar{v}}{2}, & & v^2 = \frac{v-\bar{v}}{2i}
+\end{align*}
+であるので、複素微分形式に対するグリーンの定理は
+\begin{equation}
+    \int_R dz d\bar{z} (\partial v - \bar{\partial}\bar{z}) = -\frac{1}{2i}\int_{\partial R}(vd\bar{z}+\bar{v}dz)
+\end{equation}
+というようにできる。
+
+ある正則な関数\(f(z)\)を用意して、領域\(R\)を\(z=0\)を含むようにとると
+\setcounter{equation}{45}
+\begin{equation}
+    \frac{1}{\pi}\int_R dz d\bar{z} f(z)\bar{\partial}\frac{1}{z}
+    = \frac{1}{\pi}\int_R dz d\bar{z} \bar{\partial}\qty(\frac{f(z)}{z} )
+    = \frac{1}{2\pi i}\int_{\partial R} dz\frac{f(z)}{z} = f(0)
+\end{equation}
+というようにしてデルタ関数と同じ役割をすることを示せた。
+
+ではこれを Ward-高橋恒等式に入れてみる。
+\(T^{12}\)から\(T^{z\bar{z}}\)の変換も忘れずに整理していく。
+\begin{align}
+    &\partial_\mu\ev{T^{\mu\nu}\mathcal{O}_1\cdots\mathcal{O}_n}
+             = - \sum_{j=1}^n \delta(x-x_j)\ev{\mathcal{O}_1\cdots[\partial_j^\nu\mathcal{O}_j]\cdots\mathcal{O}_n}\notag\\
+    &\partial\ev{T^{z\nu}\mathcal{O}_1\cdots\mathcal{O}_n}
+        +\bar{\partial}\ev{T^{\bar{z}\nu}\mathcal{O}_1\cdots\mathcal{O}_n}
+             = - \sum_{j=1}^n \delta(x-x_j)\partial_j^\nu\ev{\mathcal{O}_1\cdots\mathcal{O}_n}\notag
+\end{align}
+この式を\((\nu=1\text{のとき})-i(\nu=2\text{のとき})\)というようにすると
+\begin{align}
+    &\partial\ev{T^{z\bar{z}}\mathcal{O}_1\cdots\mathcal{O}_n}
+        +\bar{\partial}\ev{T^{\bar{z}\bar{z}}\mathcal{O}_1\cdots\mathcal{O}_n}
+             = - \sum_{j=1}^n \delta(z-z_j,\,\bar{z}-\bar{z}_j)2\partial_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}\notag\\
+    &2\pi\partial\ev{T_{\bar{z}z}\mathcal{O}_1\cdots\mathcal{O}_n}
+        +2\pi\bar{\partial}\ev{T_{zz}\mathcal{O}_1\cdots\mathcal{O}_n}
+            = - \sum_{j=1}^n \bar{\partial}\qty(\frac{1}{z-z_j})\partial_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}
+\end{align}
+また\((\nu=1\text{のとき})+i(\nu=2\text{のとき})\)というようにすると
+\begin{align}
+    &\partial\ev{T^{zz}\mathcal{O}_1\cdots\mathcal{O}_n}
+        +\bar{\partial}\ev{T^{\bar{z}z}\mathcal{O}_1\cdots\mathcal{O}_n}
+             = - \sum_{j=1}^n \delta(z-z_j,\,\bar{z}-\bar{z}_j)2\bar{\partial}_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}\notag\\
+    &2\pi\partial\ev{T_{\bar{z}\bar{z}}\mathcal{O}_1\cdots\mathcal{O}_n}
+        +2\pi\bar{\partial}\ev{T_{z\bar{z}}\mathcal{O}_1\cdots\mathcal{O}_n}
+            = - \sum_{j=1}^n \partial\qty(\frac{1}{\bar{z}-\bar{z}_j})\bar{\partial}_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}
+\end{align}
+というようにできる。
+
+回転変換に関しては
+\begin{align}
+    &2\ev{T_{\bar{z}z}\mathcal{O}_1\cdots\mathcal{O}_n}-\ev{T^{z\bar{z}}\mathcal{O}_1\cdots\mathcal{O}_n}
+        = - \sum_{j=1}^n \delta(z-z_j,\,\bar{z}-\bar{z}_j)s_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}\\
+    &\Sigma_{z\bar{z}}\mathcal{O}_{z_1\dots z_h\bar{z}_1\dots \bar{z}_{\bar{h}}}
+    = -\frac{h-\bar{h}}{2}\mathcal{O}_{z_1\dots z_h\bar{z}_1\dots \bar{z}_{\bar{h}}}
+    = -\frac{s}{2}\mathcal{O}_{z_1\dots z_h\bar{z}_1\dots \bar{z}_{\bar{h}}}
+\end{align}
+というようになる。 %: TODO 2次元回転変換とプライマリ場の導出
+
+また、スケール変換に関しては
+\begin{align}
+    \ev{T\indices{^\mu_\mu}\mathcal{O}_1\cdots\mathcal{O}_n}
+    &= - \sum_{j=1}^n \delta(z-z_j,\,\bar{z}-\bar{z}_j)\Delta_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}\notag\\
+    2\ev{T_{\bar{z}z}\mathcal{O}_1\cdots\mathcal{O}_n} + 2\ev{T_{z\bar{z}}\mathcal{O}_1\cdots\mathcal{O}_n}
+    &= - \sum_{j=1}^n \delta(z-z_j,\,\bar{z}-\bar{z}_j)\Delta_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}
+\end{align}
+となる。
+回転変換とスケール変換の式(3.49)と(3.51)を組み合わせてデルタ関数を書き直すと
+\begin{align}
+    2\pi\ev{T_{\bar{z}z}\mathcal{O}_1\cdots\mathcal{O}_n} = -\sum_{j=1}^{n}\bar{\partial}\qty(\frac{1}{z-z_j})h_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}\\
+    2\pi\ev{T_{z\bar{z}}\mathcal{O}_1\cdots\mathcal{O}_n} = -\sum_{j=1}^{n}\partial\qty(\frac{1}{\bar{z}-\bar{z}_j})\bar{h}_j\ev{\mathcal{O}_1\cdots\mathcal{O}_n}
+\end{align}
+となる。これを使うと並進変換の式(3.47),(3.48)から\(T_{\bar{z}z},\,T_{z\bar{z}}\)の項を消すことができる。
+\begin{align}
+    &\bar{\partial}\qty[
+        \ev{T(z,\,\bar{z})\mathcal{O}_1\cdots\mathcal{O}_n}-\sum_{j=1}^{n}\qty(
+            \frac{1}{z-z_j}\pdv{z_j} + \frac{h_j}{(z-z_j)^2})\ev{\mathcal{O}_1\cdots\mathcal{O}_n}]=0\\
+    &\partial\qty[
+        \ev{\bar{T}(z,\,\bar{z})\mathcal{O}_1\cdots\mathcal{O}_n}-\sum_{j=1}^{n}\qty(
+            \frac{1}{\bar{z}-\bar{z}_j}\pdv{z_j} + \frac{\bar{h}_j}{(\bar{z}-\bar{z}_j)^2})\ev{\mathcal{O}_1\cdots\mathcal{O}_n}]=0
+\end{align}
+と書ける。
+ここで
+\begin{equation}
+    T = -2\pi T_{zz},\quad \bar{T}=-2\pi T_{\bar{z}\bar{z}}
+\end{equation}
+とした。
+また、この式を次のようにも書き換えておく。
+\begin{align}
+    &\ev{T(z,\,\bar{z})\mathcal{O}_1\cdots\mathcal{O}_n}=\sum_{j=1}^{n}\qty(
+            \frac{1}{z-z_j}\pdv{z_j} + \frac{h_j}{(z-z_j)^2})\ev{\mathcal{O}_1\cdots\mathcal{O}_n}+\cdots\\
+    &\ev{\bar{T}(z,\,\bar{z})\mathcal{O}_1\cdots\mathcal{O}_n}=\sum_{j=1}^{n}\qty(
+            \frac{1}{\bar{z}-\bar{z}_j}\pdv{z_j} + \frac{\bar{h}_j}{(\bar{z}-\bar{z}_j)^2})\ev{\mathcal{O}_1\cdots\mathcal{O}_n} + \cdots
+\end{align}
+うしろの\(\cdots\)は\(z\rightarrow z_j\)で発散しない微分で消える\(z\)か\(\bar{z}\)の正則関数を表す。
 
 \end{document}
